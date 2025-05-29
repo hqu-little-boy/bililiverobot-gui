@@ -1,7 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import Qt5Compat.GraphicalEffects
 import "components"
 
 ScrollView {
@@ -31,14 +30,14 @@ ScrollView {
             radius: 8
             color: "#ffffff"
             
-            DropShadow {
+            // 使用纯QML阴影效果替代DropShadow
+            Rectangle {
                 anchors.fill: parent
-                horizontalOffset: 0
-                verticalOffset: 2
-                radius: 10
-                samples: 21
+                anchors.topMargin: 2
                 color: "#10000000"
-                source: parent
+                radius: parent.radius
+                opacity: 0.1
+                z: -1
             }
             
             ColumnLayout {
@@ -66,19 +65,19 @@ ScrollView {
                     
                     Item { Layout.fillWidth: true }
                     
-                    Row {
-                        spacing: 8
-                        Text {
-                            text: "🔊"
-                            font.pixelSize: 14
-                            color: "#e8a798"
-                        }
-                        Text {
-                            text: root.ttsManager?.isEnabled ? "TTS 已启用" : "TTS 已禁用"
-                            font.pixelSize: 14
-                            color: "#e8a798"
-                        }
-                    }
+                    // Row {
+                    //     spacing: 8
+                    //     Text {
+                    //         text: "🔊"
+                    //         font.pixelSize: 14
+                    //         color: "#e8a798"
+                    //     }
+                    //     Text {
+                    //         text: root.ttsManager ? (root.ttsManager.isEnabled ? "TTS 已启用" : "TTS 已禁用") : "TTS 已禁用"
+                    //         font.pixelSize: 14
+                    //         color: "#e8a798"
+                    //     }
+                    // }
                 }
                 
                 Rectangle {
@@ -122,59 +121,59 @@ ScrollView {
                 RowLayout {
                     Layout.fillWidth: true
                     
-                    Button {
-                        text: root.ttsManager?.isPlaying ? "⏸️ 暂停播报" : "▶️ 恢复播报"
-                        
-                        background: Rectangle {
-                            radius: 6
-                            color: "#f0f0f0"
-                            border.width: 1
-                            border.color: "#e0e0e0"
-                        }
-                        
-                        contentItem: Text {
-                            text: parent.text
-                            font.pixelSize: 14
-                            color: "#666666"
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                        }
-                        
-                        onClicked: {
-                            if (root.ttsManager) {
-                                if (root.ttsManager.isPlaying) {
-                                    root.ttsManager.pause()
-                                } else {
-                                    root.ttsManager.resume()
-                                }
-                            }
-                        }
-                    }
+                    // Button {
+                    //     text: root.ttsManager ? (root.ttsManager.isPlaying ? "⏸️ 暂停播报" : "▶️ 恢复播报") : "▶️ 恢复播报"
+                    //
+                    //     background: Rectangle {
+                    //         radius: 6
+                    //         color: "#f0f0f0"
+                    //         border.width: 1
+                    //         border.color: "#e0e0e0"
+                    //     }
+                    //
+                    //     contentItem: Text {
+                    //         text: parent.text
+                    //         font.pixelSize: 14
+                    //         color: "#666666"
+                    //         horizontalAlignment: Text.AlignHCenter
+                    //         verticalAlignment: Text.AlignVCenter
+                    //     }
+                    //
+                    //     onClicked: {
+                    //         if (root.ttsManager) {
+                    //             if (root.ttsManager.isPlaying) {
+                    //                 root.ttsManager.pause()
+                    //             } else {
+                    //                 root.ttsManager.resume()
+                    //             }
+                    //         }
+                    //     }
+                    // }
                     
                     Item { Layout.fillWidth: true }
                     
-                    Button {
-                        text: "🔄 清空弹幕"
-                        
-                        background: Rectangle {
-                            radius: 6
-                            color: parent.pressed ? "#d89788" : "#e8a798"
-                        }
-                        
-                        contentItem: Text {
-                            text: parent.text
-                            font.pixelSize: 14
-                            color: "#ffffff"
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                        }
-                        
-                        onClicked: {
-                            if (root.danmakuModel) {
-                                root.danmakuModel.clearMessages()
-                            }
-                        }
-                    }
+                    // Button {
+                    //     text: "🔄 清空弹幕"
+                    //
+                    //     background: Rectangle {
+                    //         radius: 6
+                    //         color: parent.pressed ? "#d89788" : "#e8a798"
+                    //     }
+                    //
+                    //     contentItem: Text {
+                    //         text: parent.text
+                    //         font.pixelSize: 14
+                    //         color: "#ffffff"
+                    //         horizontalAlignment: Text.AlignHCenter
+                    //         verticalAlignment: Text.AlignVCenter
+                    //     }
+                    //
+                    //     onClicked: {
+                    //         if (root.danmakuModel) {
+                    //             root.danmakuModel.clearMessages()
+                    //         }
+                    //     }
+                    // }
                 }
             }
         }
@@ -186,14 +185,14 @@ ScrollView {
             radius: 8
             color: "#ffffff"
             
-            DropShadow {
+            // 使用纯QML阴影效果替代DropShadow
+            Rectangle {
                 anchors.fill: parent
-                horizontalOffset: 0
-                verticalOffset: 2
-                radius: 10
-                samples: 21
+                anchors.topMargin: 2
                 color: "#10000000"
-                source: parent
+                radius: parent.radius
+                opacity: 0.1
+                z: -1
             }
             
             ColumnLayout {
@@ -227,7 +226,7 @@ ScrollView {
                     Layout.fillWidth: true
                     
                     ToggleSwitch {
-                        checked: root.settingsManager?.ttsEnabled || false
+                        checked: root.settingsManager ? (root.settingsManager.ttsEnabled || false) : false
                         onCheckedChanged: {
                             if (root.settingsManager) {
                                 root.settingsManager.ttsEnabled = checked
@@ -265,7 +264,7 @@ ScrollView {
                                 Layout.preferredWidth: 120
                                 from: 0
                                 to: 100
-                                value: root.settingsManager?.ttsVolume || 80
+                                value: root.settingsManager ? (root.settingsManager.ttsVolume || 80) : 80
                                 
                                 onValueChanged: {
                                     if (root.settingsManager) {
@@ -299,7 +298,7 @@ ScrollView {
                                 Layout.preferredWidth: 120
                                 from: 1
                                 to: 10
-                                value: root.settingsManager?.ttsSpeed || 5
+                                value: root.settingsManager ? (root.settingsManager.ttsSpeed || 5) : 5
                                 
                                 onValueChanged: {
                                     if (root.settingsManager) {
@@ -318,66 +317,66 @@ ScrollView {
                     }
                 }
                 
-                // 语音风格选择
-                Column {
-                    Layout.fillWidth: true
-                    spacing: 8
-                    
-                    Text {
-                        text: "语音风格"
-                        font.pixelSize: 14
-                        color: "#666666"
-                    }
-                    
-                    ComboBox {
-                        Layout.fillWidth: true
-                        model: root.ttsManager?.availableVoices || ["温柔女声", "活泼女声", "成熟男声"]
-                        currentIndex: {
-                            if (root.ttsManager && root.ttsManager.availableVoices) {
-                                return root.ttsManager.availableVoices.indexOf(root.settingsManager?.ttsVoice || "温柔女声")
-                            }
-                            return 0
-                        }
-                        
-                        onCurrentTextChanged: {
-                            if (root.settingsManager) {
-                                root.settingsManager.ttsVoice = currentText
-                            }
-                        }
-                        
-                        background: Rectangle {
-                            radius: 6
-                            color: "#fcfcfc"
-                            border.width: 1
-                            border.color: "#e0e0e0"
-                        }
-                    }
-                }
-                
-                // 测试按钮
-                Button {
-                    Layout.alignment: Qt.AlignLeft
-                    text: "🎵 测试语音"
-                    
-                    background: Rectangle {
-                        radius: 6
-                        color: parent.pressed ? "#d89788" : "#e8a798"
-                    }
-                    
-                    contentItem: Text {
-                        text: parent.text
-                        font.pixelSize: 14
-                        color: "#ffffff"
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                    }
-                    
-                    onClicked: {
-                        if (root.ttsManager) {
-                            root.ttsManager.testSpeak()
-                        }
-                    }
-                }
+                // // 语音风格选择
+                // Column {
+                //     Layout.fillWidth: true
+                //     spacing: 8
+                //
+                //     Text {
+                //         text: "语音风格"
+                //         font.pixelSize: 14
+                //         color: "#666666"
+                //     }
+                //
+                //     ComboBox {
+                //         Layout.fillWidth: true
+                //         model: root.ttsManager ? (root.ttsManager.availableVoices || ["温柔女声", "活泼女声", "成熟男声"]) : ["温柔女声", "活泼女声", "成熟男声"]
+                //         currentIndex: {
+                //             if (root.ttsManager && root.ttsManager.availableVoices) {
+                //                 return root.ttsManager.availableVoices.indexOf(root.settingsManager ? (root.settingsManager.ttsVoice || "温柔女声") : "温柔女声")
+                //             }
+                //             return 0
+                //         }
+                //
+                //         onCurrentTextChanged: {
+                //             if (root.settingsManager) {
+                //                 root.settingsManager.ttsVoice = currentText
+                //             }
+                //         }
+                //
+                //         background: Rectangle {
+                //             radius: 6
+                //             color: "#fcfcfc"
+                //             border.width: 1
+                //             border.color: "#e0e0e0"
+                //         }
+                //     }
+                // }
+                //
+                // // 测试按钮
+                // Button {
+                //     Layout.alignment: Qt.AlignLeft
+                //     text: "🎵 测试语音"
+                //
+                //     background: Rectangle {
+                //         radius: 6
+                //         color: parent.pressed ? "#d89788" : "#e8a798"
+                //     }
+                //
+                //     contentItem: Text {
+                //         text: parent.text
+                //         font.pixelSize: 14
+                //         color: "#ffffff"
+                //         horizontalAlignment: Text.AlignHCenter
+                //         verticalAlignment: Text.AlignVCenter
+                //     }
+                //
+                //     onClicked: {
+                //         if (root.ttsManager) {
+                //             root.ttsManager.testSpeak()
+                //         }
+                //     }
+                // }
             }
         }
     }

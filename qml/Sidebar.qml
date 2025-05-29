@@ -1,7 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import Qt5Compat.GraphicalEffects
 
 Rectangle {
     id: root
@@ -12,15 +11,14 @@ Rectangle {
     
     property string currentPage: "Danmaku"
     
-    // 添加阴影效果
-    DropShadow {
+    // 使用纯QML阴影效果替代DropShadow
+    Rectangle {
         anchors.fill: parent
-        horizontalOffset: 2
-        verticalOffset: 0
-        radius: 10
-        samples: 21
+        anchors.leftMargin: 2
         color: "#10000000"
-        source: parent
+        radius: parent.radius
+        opacity: 0.1
+        z: -1
     }
     
     Column {
@@ -32,7 +30,7 @@ Rectangle {
         Repeater {
             model: [
                 { id: "Danmaku", icon: "💬", text: "实时弹幕" },
-                { id: "Stats", icon: "📊", text: "数据统计" },
+                // { id: "Stats", icon: "📊", text: "数据统计" },
                 { id: "Welcome", icon: "👋", text: "弹幕欢迎" },
                 { id: "Gift", icon: "🎁", text: "礼物答谢" },
                 { id: "Follow", icon: "👥", text: "关注答谢" },

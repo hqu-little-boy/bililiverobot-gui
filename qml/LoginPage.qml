@@ -1,7 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import Qt5Compat.GraphicalEffects
 
 Rectangle {
     id: root
@@ -51,14 +50,14 @@ Rectangle {
             radius: 8
             color: "#ffffff"
             
-            DropShadow {
+            // 使用纯QML阴影效果替代DropShadow
+            Rectangle {
                 anchors.fill: parent
-                horizontalOffset: 0
-                verticalOffset: 2
-                radius: 10
-                samples: 21
+                anchors.topMargin: 2
                 color: "#10000000"
-                source: parent
+                radius: parent.radius
+                opacity: 0.1
+                z: -1
             }
             
             ColumnLayout {
@@ -128,7 +127,7 @@ Rectangle {
                     Layout.margins: 20
                     height: 40
                     radius: 6
-                    color: root.bilibiliApi?.isLoggedIn ? "#e8f5e8" : "#f0e6e4"
+                    color: root.bilibiliApi ? (root.bilibiliApi.isLoggedIn ? "#e8f5e8" : "#f0e6e4") : "#f0e6e4"
                     
                     Row {
                         anchors.centerIn: parent
@@ -136,7 +135,7 @@ Rectangle {
                         
                         Text {
                             id: statusIcon
-                            text: root.bilibiliApi?.isLoggedIn ? "✅" : "🔄"
+                            text: root.bilibiliApi ? (root.bilibiliApi.isLoggedIn ? "✅" : "🔄") : "🔄"
                             font.pixelSize: 14
                             
                             RotationAnimation {
@@ -152,7 +151,7 @@ Rectangle {
                         }
                         
                         Text {
-                            text: root.bilibiliApi?.loginStatus || "等待扫码中..."
+                            text: root.bilibiliApi ? (root.bilibiliApi.loginStatus || "等待扫码中...") : "等待扫码中..."
                             font.pixelSize: 14
                             color: "#666666"
                         }
@@ -162,7 +161,7 @@ Rectangle {
                 // 按钮
                 Button {
                     Layout.alignment: Qt.AlignHCenter
-                    text: root.bilibiliApi?.isLoggedIn ? "登录成功" : "模拟登录成功"
+                    text: root.bilibiliApi ? (root.bilibiliApi.isLoggedIn ? "登录成功" : "模拟登录成功") : "模拟登录成功"
                     font.pixelSize: 14
                     enabled: root.bilibiliApi ? !root.bilibiliApi.isLoggedIn : true
                     

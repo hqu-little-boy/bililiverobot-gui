@@ -1,7 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import Qt5Compat.GraphicalEffects
 
 ScrollView {
     id: root
@@ -28,18 +27,21 @@ ScrollView {
             radius: 8
             color: "#ffffff"
             
-            DropShadow {
+            // 使用纯QML阴影效果替代DropShadow
+            Rectangle {
                 anchors.fill: parent
-                horizontalOffset: 0
-                verticalOffset: 2
-                radius: 10
-                samples: 21
-                color: "#10000000"
-                source: parent
+                anchors.topMargin: 2
+                
+                radius: parent.radius
+                opacity: 0.1
+                z: -1
+                
+                
             }
             
             ColumnLayout {
                 anchors.fill: parent
+                anchors.topMargin: 2
                 anchors.margins: 25
                 
                 Row {

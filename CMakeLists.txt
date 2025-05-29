@@ -14,7 +14,7 @@ if(POLICY CMP0071)
     cmake_policy(SET CMP0071 NEW)
 endif()
 
-find_package(Qt6 REQUIRED COMPONENTS Core Quick QuickControls2 Widgets Core5Compat)
+find_package(Qt6 REQUIRED COMPONENTS Core Quick QuickControls2 Widgets)
 
 # Set Qt policy for QML resource prefix
 qt_policy(SET QTP0001 NEW)
@@ -60,7 +60,6 @@ target_link_libraries(bilibilibot-gui PRIVATE
     Qt6::Quick
     Qt6::QuickControls2
     Qt6::Widgets
-    Qt6::Core5Compat
 )
 
 # Include directories for headers

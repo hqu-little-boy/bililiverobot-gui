@@ -1,7 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import Qt5Compat.GraphicalEffects
 import "components"
 
 ScrollView {
@@ -30,14 +29,14 @@ ScrollView {
             radius: 8
             color: "#ffffff"
             
-            DropShadow {
+            // 使用纯QML阴影效果替代DropShadow
+            Rectangle {
                 anchors.fill: parent
-                horizontalOffset: 0
-                verticalOffset: 2
-                radius: 10
-                samples: 21
+                anchors.topMargin: 2
                 color: "#10000000"
-                source: parent
+                radius: parent.radius
+                opacity: 0.1
+                z: -1
             }
             
             ColumnLayout {
@@ -81,7 +80,7 @@ ScrollView {
                         
                         TextField {
                             Layout.fillWidth: true
-                            text: root.settingsManager?.roomId || ""
+                            text: root.settingsManager ? (root.settingsManager.roomId || "") : ""
                             placeholderText: "请输入直播间房间号..."
                             font.pixelSize: 14
                             
@@ -100,7 +99,7 @@ ScrollView {
                         }
                         
                         Button {
-                            text: root.bilibiliApi?.isConnected ? "断开连接" : "连接房间"
+                            text: root.bilibiliApi ? (root.bilibiliApi.isConnected ? "断开连接" : "连接房间") : "连接房间"
                             
                             background: Rectangle {
                                 radius: 6
@@ -120,7 +119,7 @@ ScrollView {
                                     if (root.bilibiliApi.isConnected) {
                                         root.bilibiliApi.disconnectFromRoom()
                                     } else {
-                                        root.bilibiliApi.connectToRoom(root.settingsManager?.roomId || "")
+                                        root.bilibiliApi.connectToRoom(root.settingsManager ? (root.settingsManager.roomId || "") : "")
                                     }
                                 }
                             }
@@ -132,7 +131,7 @@ ScrollView {
                     Layout.fillWidth: true
                     
                     ToggleSwitch {
-                        checked: root.settingsManager?.autoConnect || false
+                        checked: root.settingsManager ? (root.settingsManager.autoConnect || false) : false
                         onCheckedChanged: {
                             if (root.settingsManager) {
                                 root.settingsManager.autoConnect = checked
@@ -155,9 +154,9 @@ ScrollView {
                         color: "#666666"
                     }
                     Text {
-                        text: root.bilibiliApi?.isConnected ? "已连接" : "未连接"
+                        text: root.bilibiliApi ? (root.bilibiliApi.isConnected ? "已连接" : "未连接") : "未连接"
                         font.pixelSize: 14
-                        color: root.bilibiliApi?.isConnected ? "#4caf50" : "#f44336"
+                        color: root.bilibiliApi ? (root.bilibiliApi.isConnected ? "#4caf50" : "#f44336") : "#f44336"
                         font.weight: Font.Medium
                     }
                 }
@@ -171,14 +170,14 @@ ScrollView {
             radius: 8
             color: "#ffffff"
             
-            DropShadow {
+            // 使用纯QML阴影效果替代DropShadow
+            Rectangle {
                 anchors.fill: parent
-                horizontalOffset: 0
-                verticalOffset: 2
-                radius: 10
-                samples: 21
+                anchors.topMargin: 2
                 color: "#10000000"
-                source: parent
+                radius: parent.radius
+                opacity: 0.1
+                z: -1
             }
             
             ColumnLayout {
