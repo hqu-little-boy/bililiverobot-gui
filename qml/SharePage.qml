@@ -3,77 +3,123 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import BilibiliBot 1.0
 
-ScrollView {
-    id: root
-    
-    ColumnLayout {
-        width: root.width
-        spacing: 20
-        
-        Text {
-            text: "分享感谢设置"
-            font.pixelSize: 24
-            font.weight: Font.Medium
-            color: "#333333"
-        }
-        
-        Rectangle {
-            Layout.fillWidth: true
-            Layout.preferredHeight: 400
-            radius: 8
-            color: "#ffffff"
-            
-            // 使用纯QML阴影效果替代DropShadow
-            Rectangle {
-                anchors.fill: parent
-                anchors.topMargin: 2
-                
-                radius: parent.radius
-                opacity: 0.1
-                z: -1
-                
-                
-            }
-            
-            ColumnLayout {
-                anchors.fill: parent
-                anchors.topMargin: 2
-                anchors.margins: 25
-                
-                Row {
-                    spacing: 10
-                    Text {
-                        text: "📤"
-                        font.pixelSize: 18
-                    }
-                    Text {
-                        text: "分享感谢设置"
-                        font.pixelSize: 18
-                        font.weight: Font.Medium
-                        color: "#333333"
+Page {
+    title: "分享感谢设置"
+
+    ScrollView {
+        anchors.fill: parent
+        contentWidth: parent.width
+
+        Item { // Use an Item for padding
+            width: Math.min(parent.width, 640)
+            anchors.horizontalCenter: parent.horizontalCenter
+            implicitHeight: shareLayout.implicitHeight + 40
+
+            GridLayout {
+                id: shareLayout
+                columns: 1
+                width: parent.width - 40
+                anchors.centerIn: parent
+                rowSpacing: 15
+                columnSpacing: 15
+
+                Label {
+                    text: "分享感谢设置"
+                    font.pixelSize: 20
+                    font.bold: true
+                    Layout.fillWidth: true
+                    Layout.bottomMargin: 10
+                    horizontalAlignment: Text.AlignHCenter
+                }
+                Label {
+                    text: "设置直播间分享后的感谢词"
+                    font.pixelSize: 14
+                    color: "gray"
+                    Layout.fillWidth: true
+                    Layout.bottomMargin: 20
+                    horizontalAlignment: Text.AlignHCenter
+                }
+
+                RowLayout {
+                    Layout.fillWidth: true
+                    Switch {
+                        id: enableShareThanksToggle
+                        text: "启用分享感谢功能"
+                        checked: true
                     }
                 }
-                
-                Rectangle {
-                    Layout.fillWidth: true
-                    height: 1
-                    color: "#f0f0f0"
+
+                Label {
+                    text: "分享感谢词"
+                    font.pixelSize: 14
+                    color: "gray"
                 }
-                
-                Rectangle {
+                TextField {
+                    id: shareThanksMessageInput
                     Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    radius: 6
-                    color: "#f9f9f9"
-                    border.width: 1
-                    border.color: "#e0e0e0"
-                    
-                    Text {
-                        anchors.centerIn: parent
-                        text: "📤 分享感谢功能设置区域\n（待实现具体功能）"
-                        font.pixelSize: 14
-                        color: "#999999"
-                        horizontalAlignment: Text.AlignHCenter
+                    text: "感谢 {用户名} 分享直播间！"
+                }
+
+                Label {
+                    text: "分享平台识别"
+                    font.pixelSize: 14
+                    color: "gray"
+                    Layout.topMargin: 15
+                }
+                GridLayout {
+                    Layout.fillWidth: true
+                    columns: 2
+                    rowSpacing: 10
+                    columnSpacing: 10
+
+                    CheckBox {
+                        text: "B站动态"
+                        checked: true
+                    }
+                    CheckBox {
+                        text: "微信"
+                        checked: true
+                    }
+                    CheckBox {
+                        text: "微博"
+                        checked: true
+                    }
+                    CheckBox {
+                        text: "QQ空间"
+                        checked: false
+                    }
+                }
+
+                Label {
+                    text: "分享次数阈值"
+                    font.pixelSize: 14
+                    color: "gray"
+                    Layout.topMargin: 15
+                }
+                SpinBox {
+                    id: shareThresholdSpinBox
+                    Layout.fillWidth: true
+                    from: 1
+                    to: 20
+                    value: 5
+                    editable: true
+                }
+                Label {
+                    text: "用户分享达到此次数才触发感谢"
+                    font.pixelSize: 12
+                    color: "darkgray"
+                    Layout.fillWidth: true
+                }
+
+                Button {
+                    id: saveShareSettingsButton
+                    text: "保存设置"
+                    Layout.fillWidth: true
+                    Layout.topMargin: 20
+                    highlighted: true
+                    onClicked: {
+                        // Placeholder for save action
+                        console.log("分享感谢设置已保存");
                     }
                 }
             }

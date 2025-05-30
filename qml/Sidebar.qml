@@ -43,7 +43,7 @@ Rectangle {
             Rectangle {
                 width: 70
                 height: 70
-                color: root.currentPage === modelData.id ? "#f0e6e4" : "transparent"
+                color: "transparent"
                 
                 Rectangle {
                     width: 3
@@ -76,22 +76,22 @@ Rectangle {
                     anchors.fill: parent
                     hoverEnabled: true
                     
-                    onEntered: {
-                        if (root.currentPage !== modelData.id) {
-                            parent.color = "#f5f5f5"
-                        }
-                    }
-                    
-                    onExited: {
-                        if (root.currentPage !== modelData.id) {
-                            parent.color = "transparent"
-                        }
-                    }
+                    // onEntered: {
+                    //     if (root.currentPage !== modelData.id) {
+                    //         parent.color = "#f5f5f5"
+                    //     }
+                    // }
+                    //
+                    // onExited: {
+                    //     if (root.currentPage !== modelData.id) {
+                    //         parent.color = "transparent"
+                    //     }
+                    // }
                     
                     onClicked: {
                         root.currentPage = modelData.id
                         root.pageChanged(modelData.id)
-                        parent.color = "#f0e6e4"
+                        // parent.color = "#f0e6e4"
                     }
                 }
                 

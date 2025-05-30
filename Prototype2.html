@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B站直播弹幕机器人 - 无印良品风格</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Source Han Sans SC', 'Microsoft YaHei', sans-serif;
+        }
+
+        :root {
+            --bg-color: #f8f5f2;
+            --card-color: #ffffff;
+            --primary-color: #333333;
+            --secondary-color: #666666;
+            --accent-color: #e8a798;
+            --light-gray: #e0e0e0;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            --border-radius: 8px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .logo i {
+            font-size: 48px;
+            color: var(--accent-color);
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 400;
+            margin-top: 10px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--light-gray);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 12px;
+            color: var(--accent-color);
+        }
+
+        /* 卡片样式 */
+        .card {
+            background: var(--card-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(232, 167, 152, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+
+        .card-icon i {
+            color: var(--accent-color);
+            font-size: 20px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .card-subtitle {
+            font-size: 14px;
+            color: var(--secondary-color);
+            margin-top: 3px;
+        }
+
+        /* 表单元素 */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+            font-size: 14px;
+            background: #fcfcfc;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(232, 167, 152, 0.2);
+        }
+
+        .form-textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .toggle-label {
+            margin-left: 10px;
+            font-size: 14px;
+            color: var(--primary-color);
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--accent-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* 按钮样式 */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.3s;
+            text-align: center;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: #d89788;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .btn-outline:hover {
+            background: rgba(232, 167, 152, 0.1);
+        }
+
+        /* 数据展示 */
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .data-item {
+            background: rgba(232, 167, 152, 0.08);
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .data-value {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+
+        .data-label {
+            font-size: 12px;
+            color: var(--secondary-color);
+            margin-top: 5px;
+        }
+
+        .user-list {
+            margin-top: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+        }
+
+        .user-item {
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-item:last-child {
+            border-bottom: none;
+        }
+
+        .user-name {
+            font-weight: 500;
+        }
+
+        .user-action {
+            color: var(--accent-color);
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            color: var(--secondary-color);
+            font-size: 14px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .data-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <div class="logo">
+        <i class="fas fa-robot"></i>
+        <h1>B站直播弹幕机器人</h1>
+    </div>
+    <p>无印良品风格功能设置面板</p>
+</div>
+
+<div class="container">
+    <!-- 礼物答谢功能设置 -->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-icon">
+                <i class="fas fa-gift"></i>
+            </div>
+            <div>
+                <div class="card-title">礼物答谢设置</div>
+                <div class="card-subtitle">自定义礼物答谢词和延迟设置</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="toggle-container">
+                <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
+                <span class="toggle-label">启用礼物答谢功能</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">礼物答谢延迟 (秒)</label>
+            <input type="number" class="form-input" value="3" min="0" max="10">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">默认答谢词</label>
+            <input type="text" class="form-input" value="感谢 {用户名} 赠送的 {礼物名}！">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">高价值礼物单独设置</label>
+            <select class="form-input" style="margin-bottom: 10px;">
+                <option>选择礼物类型</option>
+                <option>大航海</option>
+                <option>醒目留言</option>
+                <option>节奏风暴</option>
+            </select>
+            <input type="text" class="form-input" placeholder="自定义答谢词..." value="感谢 {用户名} 开通舰长！">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">礼物价值阈值</label>
+            <div style="display: flex; align-items: center;">
+                <input type="range" min="0" max="100" value="50" style="flex: 1; margin: 0 10px;">
+                <span>50 电池</span>
+            </div>
+        </div>
+
+        <button class="btn">保存设置</button>
+    </div>
+
+    <!-- 关注答谢功能设置 -->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div>
+                <div class="card-title">关注答谢设置</div>
+                <div class="card-subtitle">设置新粉丝关注时的答谢词</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="toggle-container">
+                <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
+                <span class="toggle-label">启用关注答谢功能</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">关注答谢词</label>
+            <input type="text" class="form-input" value="感谢 {用户名} 的关注，欢迎加入我们！">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">答谢延迟 (秒)</label>
+            <input type="number" class="form-input" value="2" min="0" max="5">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">特别关注用户答谢</label>
+            <input type="text" class="form-input" placeholder="输入用户名..." style="margin-bottom: 8px;">
+            <input type="text" class="form-input" placeholder="自定义答谢词...">
+            <button class="btn btn-outline" style="margin-top: 10px;">添加用户</button>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">已设置的特殊关注用户</label>
+            <div class="user-list">
+                <div class="user-item">
+                    <div class="user-name">超级粉丝007</div>
+                    <div class="user-action">删除</div>
+                </div>
+                <div class="user-item">
+                    <div class="user-name">舰长小明</div>
+                    <div class="user-action">删除</div>
+                </div>
+                <div class="user-item">
+                    <div class="user-name">老铁一号</div>
+                    <div class="user-action">删除</div>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn">保存设置</button>
+    </div>
+
+    <!-- 分享感谢功能设置 -->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-icon">
+                <i class="fas fa-share-alt"></i>
+            </div>
+            <div>
+                <div class="card-title">分享感谢设置</div>
+                <div class="card-subtitle">设置直播间分享后的感谢词</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="toggle-container">
+                <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
+                <span class="toggle-label">启用分享感谢功能</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">分享感谢词</label>
+            <input type="text" class="form-input" value="感谢 {用户名} 分享直播间！">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">分享平台识别</label>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                <label style="display: flex; align-items: center;">
+                    <input type="checkbox" checked style="margin-right: 8px;"> B站动态
+                </label>
+                <label style="display: flex; align-items: center;">
+                    <input type="checkbox" checked style="margin-right: 8px;"> 微信
+                </label>
+                <label style="display: flex; align-items: center;">
+                    <input type="checkbox" checked style="margin-right: 8px;"> 微博
+                </label>
+                <label style="display: flex; align-items: center;">
+                    <input type="checkbox" style="margin-right: 8px;"> QQ空间
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">分享次数阈值</label>
+            <input type="number" class="form-input" value="5" min="1" max="20">
+            <p style="font-size: 12px; color: var(--secondary-color); margin-top: 5px;">用户分享达到此次数才触发感谢</p>
+        </div>
+
+        <button class="btn">保存设置</button>
+    </div>
+
+    <!-- 盲盒统计功能区域 -->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-icon">
+                <i class="fas fa-box-open"></i>
+            </div>
+            <div>
+                <div class="card-title">盲盒统计</div>
+                <div class="card-subtitle">直播间盲盒开启统计与分析</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="toggle-container">
+                <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
+                <span class="toggle-label">启用盲盒统计功能</span>
+            </div>
+        </div>
+
+        <div class="data-grid">
+            <div class="data-item">
+                <div class="data-value">42</div>
+                <div class="data-label">今日盲盒</div>
+            </div>
+            <div class="data-item">
+                <div class="data-value">128</div>
+                <div class="data-label">本周盲盒</div>
+            </div>
+            <div class="data-item">
+                <div class="data-value">18</div>
+                <div class="data-label">稀有盲盒</div>
+            </div>
+            <div class="data-item">
+                <div class="data-value">¥328</div>
+                <div class="data-label">总价值</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">盲盒价值排行榜</label>
+            <div class="user-list">
+                <div class="user-item">
+                    <div class="user-name">开盒大师</div>
+                    <div>¥86</div>
+                </div>
+                <div class="user-item">
+                    <div class="user-name">欧皇降临</div>
+                    <div>¥74</div>
+                </div>
+                <div class="user-item">
+                    <div class="user-name">幸运星</div>
+                    <div>¥58</div>
+                </div>
+                <div class="user-item">
+                    <div class="user-name">盒子爱好者</div>
+                    <div>¥42</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">盲盒开启提示</label>
+            <input type="text" class="form-input" value="恭喜 {用户名} 开启了{盲盒名}！">
+        </div>
+
+        <button class="btn">保存设置</button>
+    </div>
+
+    <!-- PK功能设置区域 -->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-icon">
+                <i class="fas fa-fist-raised"></i>
+            </div>
+            <div>
+                <div class="card-title">PK功能设置</div>
+                <div class="card-subtitle">PK对手识别与相关设置</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="toggle-container">
+                <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
+                <span class="toggle-label">启用PK功能</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">PK开始提示</label>
+            <input type="text" class="form-input" value="PK开始了，大家加油！">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">PK结束提示</label>
+            <input type="text" class="form-input" value="PK结束，感谢大家的支持！">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">对方主播信息提示</label>
+            <input type="text" class="form-input" value="当前PK对手：{主播名}，粉丝数：{粉丝数}">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">对方用户串门识别</label>
+            <input type="text" class="form-input" value="欢迎来自{对方主播}直播间的{用户名}！">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">PK目标设置</label>
+            <input type="text" class="form-input" placeholder="输入对方主播ID...">
+            <button class="btn btn-outline" style="margin-top: 10px;">获取主播信息</button>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">PK历史记录</label>
+            <div class="user-list">
+                <div class="user-item">
+                    <div class="user-name">游戏主播小张</div>
+                    <div>3胜2负</div>
+                </div>
+                <div class="user-item">
+                    <div class="user-name">音乐达人小王</div>
+                    <div>5胜1负</div>
+                </div>
+                <div class="user-item">
+                    <div class="user-name">美食博主小李</div>
+                    <div>2胜2负</div>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn">保存设置</button>
+    </div>
+</div>
+
+<div class="footer">
+    <p>B站直播弹幕机器人 &copy; 2023 | 无印良品风格设计</p>
+    <p>基于C++ QML开发的Native应用 | 适配各种尺寸安卓设备</p>
+</div>
+
+<script>
+    // 为删除按钮添加事件处理
+    document.querySelectorAll('.user-action').forEach(button => {
+        button.addEventListener('click', function() {
+            const userItem = this.closest('.user-item');
+            if (userItem) {
+                userItem.style.opacity = '0';
+                setTimeout(() => {
+                    userItem.remove();
+                }, 300);
+            }
+        });
+    });
+
+    // 为范围输入添加标签更新
+    const rangeInputs = document.querySelectorAll('input[type="range"]');
+    rangeInputs.forEach(input => {
+        const valueSpan = input.nextElementSibling;
+        if (valueSpan && valueSpan.tagName === 'SPAN') {
+            input.addEventListener('input', function() {
+                valueSpan.textContent = this.value + (this.id === 'volume' ? '%' : ' 电池');
+            });
+        }
+    });
+</script>
+</body>
+</html>
