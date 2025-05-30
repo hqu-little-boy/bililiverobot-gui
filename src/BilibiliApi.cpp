@@ -4,6 +4,23 @@
 #include <QRandomGenerator>
 #include <QUrlQuery>
 
+BilibiliApi* BilibiliApi::m_instance = nullptr;
+
+BilibiliApi* BilibiliApi::instance()
+{
+    if (!m_instance) {
+        m_instance = new BilibiliApi();
+    }
+    return m_instance;
+}
+
+BilibiliApi* BilibiliApi::create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
+{
+    Q_UNUSED(qmlEngine)
+    Q_UNUSED(jsEngine)
+    return instance();
+}
+
 BilibiliApi::BilibiliApi(QObject *parent)
     : QObject(parent)
     , m_networkManager(new QNetworkAccessManager(this))

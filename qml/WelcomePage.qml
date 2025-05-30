@@ -1,15 +1,11 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
+import BilibiliBot 1.0
 import "components"
 
 ScrollView {
     id: root
-
-    property var danmakuModel
-    property var settingsManager
-    property var bilibiliApi
-    property var ttsManager
 
     ColumnLayout {
         width: root.width
@@ -71,11 +67,9 @@ ScrollView {
                     Layout.fillWidth: true
 
                     ToggleSwitch {
-                        checked: root.settingsManager ? root.settingsManager.welcomeEnabled : false
+                        checked: SettingsManager.welcomeEnabled
                         onCheckedChanged: {
-                            if (root.settingsManager) {
-                                root.settingsManager.welcomeEnabled = checked
-                            }
+                            SettingsManager.welcomeEnabled = checked
                         }
                     }
 
@@ -111,18 +105,14 @@ ScrollView {
                         }
 
                         Component.onCompleted: {
-                            if (root.settingsManager) {
-                                text = root.settingsManager.normalUserWelcome || "欢迎 {用户名} 进入直播间~"
-                            }
+                            text = SettingsManager.normalUserWelcome || "欢迎 {用户名} 进入直播间~"
                         }
 
                         onTextChanged: {
-                            if (root.settingsManager && !normalUserTextField.activeFocus) {
+                            if (!normalUserTextField.activeFocus) {
                                 return // 避免在程序设置时触发
                             }
-                            if (root.settingsManager) {
-                                root.settingsManager.normalUserWelcome = text
-                            }
+                            SettingsManager.normalUserWelcome = text
                         }
                     }
 
@@ -158,18 +148,14 @@ ScrollView {
                         }
 
                         Component.onCompleted: {
-                            if (root.settingsManager) {
-                                text = root.settingsManager.captainUserWelcome || "热烈欢迎舰长 {用户名} 进入直播间！"
-                            }
+                            text = SettingsManager.captainUserWelcome || "热烈欢迎舰长 {用户名} 进入直播间！"
                         }
 
                         onTextChanged: {
-                            if (root.settingsManager && !captainUserTextField.activeFocus) {
+                            if (!captainUserTextField.activeFocus) {
                                 return // 避免在程序设置时触发
                             }
-                            if (root.settingsManager) {
-                                root.settingsManager.captainUserWelcome = text
-                            }
+                            SettingsManager.captainUserWelcome = text
                         }
                     }
                 }
@@ -276,9 +262,7 @@ ScrollView {
                     }
 
                     onClicked: {
-                        if (root.settingsManager) {
-                            root.settingsManager.saveSettings()
-                        }
+                        SettingsManager.saveSettings()
                     }
                 }
             }

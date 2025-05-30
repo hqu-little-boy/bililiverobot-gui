@@ -1,5 +1,22 @@
 #include "SettingsManager.h"
 
+SettingsManager* SettingsManager::m_instance = nullptr;
+
+SettingsManager* SettingsManager::instance()
+{
+    if (!m_instance) {
+        m_instance = new SettingsManager();
+    }
+    return m_instance;
+}
+
+SettingsManager* SettingsManager::create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
+{
+    Q_UNUSED(qmlEngine)
+    Q_UNUSED(jsEngine)
+    return instance();
+}
+
 SettingsManager::SettingsManager(QObject *parent)
     : QObject(parent)
     , m_settings(new QSettings(this))

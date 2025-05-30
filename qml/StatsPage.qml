@@ -1,15 +1,11 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
+import BilibiliBot 1.0
 import "components"
 
 ScrollView {
     id: root
-    
-    property var danmakuModel
-    property var settingsManager
-    property var bilibiliApi
-    property var ttsManager
     
     ColumnLayout {
         width: root.width

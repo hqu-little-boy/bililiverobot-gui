@@ -1,16 +1,12 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
+import BilibiliBot 1.0
 import "."
 
 Rectangle {
     id: root
     color: "#f8f5f2"
-    
-    property var danmakuModel
-    property var settingsManager
-    property var bilibiliApi
-    property var ttsManager
     
     RowLayout {
         anchors.fill: parent
@@ -39,19 +35,19 @@ Rectangle {
                 anchors.margins: 20
                 source: "DanmakuPage.qml"
                 
-                onLoaded: {
-                    if (item) {
-                        // 传递管理器实例给加载的页面
-                        if (item.hasOwnProperty("danmakuModel"))
-                            item.danmakuModel = root.danmakuModel
-                        if (item.hasOwnProperty("settingsManager"))
-                            item.settingsManager = root.settingsManager
-                        if (item.hasOwnProperty("bilibiliApi"))
-                            item.bilibiliApi = root.bilibiliApi
-                        if (item.hasOwnProperty("ttsManager"))
-                            item.ttsManager = root.ttsManager
-                    }
-                }
+                // onLoaded: {
+                //     if (item) {
+                //         // 传递单例实例给加载的页面
+                //         if (item.hasOwnProperty("danmakuModel"))
+                //             item.danmakuModel = DanmakuModel
+                //         if (item.hasOwnProperty("settingsManager"))
+                //             item.settingsManager = SettingsManager
+                //         if (item.hasOwnProperty("bilibiliApi"))
+                //             item.bilibiliApi = BilibiliApi
+                //         if (item.hasOwnProperty("ttsManager"))
+                //             item.ttsManager = TTSManager
+                //     }
+                // }
             }
         }
     }

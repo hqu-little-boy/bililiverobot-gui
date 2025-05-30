@@ -1,15 +1,11 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
+import BilibiliBot 1.0
 import "components"
 
 ScrollView {
     id: root
-    
-    property var danmakuModel
-    property var settingsManager
-    property var bilibiliApi
-    property var ttsManager
     
     ColumnLayout {
         width: root.width
@@ -80,7 +76,7 @@ ScrollView {
                         
                         TextField {
                             Layout.fillWidth: true
-                            text: root.settingsManager ? (root.settingsManager.roomId || "") : ""
+                            text: SettingsManager ? (SettingsManager.roomId || "") : ""
                             placeholderText: "请输入直播间房间号..."
                             font.pixelSize: 14
                             
@@ -92,14 +88,14 @@ ScrollView {
                             }
                             
                             onTextChanged: {
-                                if (root.settingsManager) {
-                                    root.settingsManager.roomId = text
+                                if (SettingsManager) {
+                                    SettingsManager.roomId = text
                                 }
                             }
                         }
                         
                         Button {
-                            text: root.bilibiliApi ? (root.bilibiliApi.isConnected ? "断开连接" : "连接房间") : "连接房间"
+                            text: BilibiliApi ? (BilibiliApi.isConnected ? "断开连接" : "连接房间") : "连接房间"
                             
                             background: Rectangle {
                                 radius: 6
@@ -115,11 +111,11 @@ ScrollView {
                             }
                             
                             onClicked: {
-                                if (root.bilibiliApi) {
-                                    if (root.bilibiliApi.isConnected) {
-                                        root.bilibiliApi.disconnectFromRoom()
+                                if (BilibiliApi) {
+                                    if (BilibiliApi.isConnected) {
+                                        BilibiliApi.disconnectFromRoom()
                                     } else {
-                                        root.bilibiliApi.connectToRoom(root.settingsManager ? (root.settingsManager.roomId || "") : "")
+                                        BilibiliApi.connectToRoom(SettingsManager ? (SettingsManager.roomId || "") : "")
                                     }
                                 }
                             }
@@ -131,10 +127,10 @@ ScrollView {
                     Layout.fillWidth: true
                     
                     ToggleSwitch {
-                        checked: root.settingsManager ? (root.settingsManager.autoConnect || false) : false
+                        checked: SettingsManager ? (SettingsManager.autoConnect || false) : false
                         onCheckedChanged: {
-                            if (root.settingsManager) {
-                                root.settingsManager.autoConnect = checked
+                            if (SettingsManager) {
+                                SettingsManager.autoConnect = checked
                             }
                         }
                     }
@@ -154,9 +150,9 @@ ScrollView {
                         color: "#666666"
                     }
                     Text {
-                        text: root.bilibiliApi ? (root.bilibiliApi.isConnected ? "已连接" : "未连接") : "未连接"
+                        text: BilibiliApi ? (BilibiliApi.isConnected ? "已连接" : "未连接") : "未连接"
                         font.pixelSize: 14
-                        color: root.bilibiliApi ? (root.bilibiliApi.isConnected ? "#4caf50" : "#f44336") : "#f44336"
+                        color: BilibiliApi ? (BilibiliApi.isConnected ? "#4caf50" : "#f44336") : "#f44336"
                         font.weight: Font.Medium
                     }
                 }
@@ -226,8 +222,8 @@ ScrollView {
                         }
                         
                         onClicked: {
-                            if (root.settingsManager) {
-                                root.settingsManager.saveSettings()
+                            if (SettingsManager) {
+                                SettingsManager.saveSettings()
                             }
                         }
                     }
@@ -251,8 +247,8 @@ ScrollView {
                         }
                         
                         onClicked: {
-                            if (root.settingsManager) {
-                                root.settingsManager.resetToDefaults()
+                            if (SettingsManager) {
+                                SettingsManager.resetToDefaults()
                             }
                         }
                     }
@@ -274,8 +270,8 @@ ScrollView {
                         }
                         
                         onClicked: {
-                            if (root.bilibiliApi) {
-                                root.bilibiliApi.logout()
+                            if (BilibiliApi) {
+                                BilibiliApi.logout()
                             }
                         }
                     }

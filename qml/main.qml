@@ -12,43 +12,31 @@ ApplicationWindow {
     visible: true
     title: qsTr("B站弹幕机器人")
     
-    property bool isLoggedIn: false
+    property bool isLoggedIn: true // 登录状态
     
-    // 创建管理器实例
-    DanmakuModel {
-        id: danmakuModel
-    }
-    
-    SettingsManager {
-        id: settingsManager
-    }
-    
-    BilibiliApi {
-        id: bilibiliApi
-        
-        onLoginSuccess: {
+    Component.onCompleted: {
+        // 连接单例信号
+        BilibiliApi.loginSuccess.connect(function() {
             window.isLoggedIn = true
-            danmakuModel.startSimulation()
-        }
+            DanmakuModel.startSimulation()
+        })
         
-        onLoginStatusChanged: {
-            window.isLoggedIn = bilibiliApi.isLoggedIn
-        }
+        BilibiliApi.loginStatusChanged.connect(function() {
+            window.isLoggedIn = BilibiliApi.isLoggedIn
+        })
         
-        onDanmakuReceived: function(user, message, type) {
-            danmakuModel.addMessage(user, message, type)
-            if (settingsManager.ttsEnabled) {
-                ttsManager.speak(user + "说：" + message)
+        BilibiliApi.danmakuReceived.connect(function(user, message, type) {
+            DanmakuModel.addMessage(user, message, type)
+            if (SettingsManager.ttsEnabled) {
+                TTSManager.speak(user + "说：" + message)
             }
-        }
-    }
-    
-    TTSManager {
-        id: ttsManager
-        isEnabled: settingsManager.ttsEnabled
-        volume: settingsManager.ttsVolume
-        speed: settingsManager.ttsSpeed
-        voice: settingsManager.ttsVoice
+        })
+        
+        // 同步TTS设置
+        TTSManager.isEnabled = SettingsManager.ttsEnabled
+        TTSManager.volume = SettingsManager.ttsVolume
+        TTSManager.speed = SettingsManager.ttsSpeed
+        TTSManager.voice = SettingsManager.ttsVoice
     }
     
     // 主内容
@@ -59,12 +47,8 @@ ApplicationWindow {
         
         onLoaded: {
             if (item && window.isLoggedIn) {
-                item.danmakuModel = danmakuModel
-                item.settingsManager = settingsManager
-                item.bilibiliApi = bilibiliApi
-                item.ttsManager = ttsManager
-            } else if (item && !window.isLoggedIn) {
-                item.bilibiliApi = bilibiliApi
+                // 单例模式下不需要传递任何属性
+                DanmakuModel.startSimulation()
             }
         }
     }

@@ -1,6 +1,23 @@
 #include "TTSManager.h"
 #include <QDebug>
 
+TTSManager* TTSManager::m_instance = nullptr;
+
+TTSManager* TTSManager::instance()
+{
+    if (!m_instance) {
+        m_instance = new TTSManager();
+    }
+    return m_instance;
+}
+
+TTSManager* TTSManager::create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
+{
+    Q_UNUSED(qmlEngine)
+    Q_UNUSED(jsEngine)
+    return instance();
+}
+
 TTSManager::TTSManager(QObject *parent)
     : QObject(parent)
     , m_isEnabled(true)

@@ -2,6 +2,23 @@
 #include <QDateTime>
 #include <QRandomGenerator>
 
+DanmakuModel* DanmakuModel::m_instance = nullptr;
+
+DanmakuModel* DanmakuModel::instance()
+{
+    if (!m_instance) {
+        m_instance = new DanmakuModel();
+    }
+    return m_instance;
+}
+
+DanmakuModel* DanmakuModel::create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
+{
+    Q_UNUSED(qmlEngine)
+    Q_UNUSED(jsEngine)
+    return instance();
+}
+
 DanmakuModel::DanmakuModel(QObject *parent)
     : QAbstractListModel(parent)
     , m_simulationTimer(new QTimer(this))

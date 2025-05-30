@@ -3,11 +3,6 @@
 #include <QQuickStyle>
 #include <QIcon>
 
-#include "DanmakuModel.h"
-#include "SettingsManager.h"
-#include "BilibiliApi.h"
-#include "TTSManager.h"
-
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
@@ -18,17 +13,11 @@ int main(int argc, char *argv[])
     app.setOrganizationName("BilibiliBot Team");
     app.setOrganizationDomain("bilibilibot.com");
     
-    // 设置应用图标
-    app.setWindowIcon(QIcon(":/resources/icons/app_icon.png"));
+    // // 设置应用图标
+    // app.setWindowIcon(QIcon(":/resources/icons/app_icon.png"));
     
     // 设置QuickControls2样式
     QQuickStyle::setStyle("Material");
-    
-    // 注册C++类型到QML
-    qmlRegisterType<DanmakuModel>("BilibiliBot", 1, 0, "DanmakuModel");
-    qmlRegisterType<SettingsManager>("BilibiliBot", 1, 0, "SettingsManager");
-    qmlRegisterType<BilibiliApi>("BilibiliBot", 1, 0, "BilibiliApi");
-    qmlRegisterType<TTSManager>("BilibiliBot", 1, 0, "TTSManager");
     
     QQmlApplicationEngine engine;
     
