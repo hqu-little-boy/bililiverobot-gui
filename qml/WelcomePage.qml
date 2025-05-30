@@ -22,7 +22,7 @@ ScrollView {
         // 欢迎设置卡片
         Rectangle {
             Layout.fillWidth: true
-            Layout.preferredHeight: 500
+            Layout.preferredHeight: 700
             radius: 8
             color: "#ffffff"
 
@@ -189,7 +189,7 @@ ScrollView {
                         }
 
                         TextField {
-                            Layout.fillWidth: true
+                            Layout.preferredWidth: 200
                             placeholderText: "自定义欢迎词..."
                             font.pixelSize: 14
 

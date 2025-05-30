@@ -2,163 +2,198 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import BilibiliBot 1.0
+import "components"
 
-Page {
-    title: "PK功能设置"
-
-    ScrollView {
-        anchors.fill: parent
-        contentWidth: parent.width
-
-        Item { // Use an Item for padding
-            width: Math.min(parent.width, 640)
-            anchors.horizontalCenter: parent.horizontalCenter
-            implicitHeight: pkLayout.implicitHeight + 40
-
-            GridLayout {
-                id: pkLayout
-                columns: 1
-                width: parent.width - 40
-                anchors.centerIn: parent
-                rowSpacing: 15
-                columnSpacing: 15
-
-                Label {
-                    text: "PK功能设置"
-                    font.pixelSize: 20
-                    font.bold: true
-                    Layout.fillWidth: true
-                    Layout.bottomMargin: 10
-                    horizontalAlignment: Text.AlignHCenter
+ScrollView {
+    id: root
+    
+    ColumnLayout {
+        width: root.width
+        spacing: 20
+        
+        // 页面标题
+        Text {
+            text: "PK功能设置"
+            font.pixelSize: 24
+            font.weight: Font.Medium
+            color: "#333333"
+        }
+        
+        // PK设置卡片
+        Rectangle {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 650
+            radius: 8
+            color: "#ffffff"
+            
+            // 使用纯QML阴影效果替代DropShadow
+            Rectangle {
+                anchors.fill: parent
+                anchors.topMargin: 2
+                color: "#10000000"
+                radius: parent.radius
+                opacity: 0.1
+                z: -1
+            }
+            
+            ColumnLayout {
+                anchors.fill: parent
+                anchors.margins: 25
+                spacing: 20
+                
+                // 卡片标题
+                Row {
+                    spacing: 10
+                    Text {
+                        text: "👊"
+                        font.pixelSize: 18
+                    }
+                    Text {
+                        text: "PK对手识别与相关设置"
+                        font.pixelSize: 18
+                        font.weight: Font.Medium
+                        color: "#333333"
+                    }
                 }
-                Label {
-                    text: "PK对手识别与相关设置"
-                    font.pixelSize: 14
-                    color: "gray"
+                
+                Rectangle {
                     Layout.fillWidth: true
-                    Layout.bottomMargin: 20
-                    horizontalAlignment: Text.AlignHCenter
+                    height: 1
+                    color: "#f0f0f0"
                 }
 
+                // 启用开关
                 RowLayout {
                     Layout.fillWidth: true
-                    Switch {
+                    
+                    ToggleSwitch {
                         id: enablePKFeatureToggle
-                        text: "启用PK功能"
                         checked: true
                     }
-                }
-
-                Label {
-                    text: "PK开始提示"
-                    font.pixelSize: 14
-                    color: "gray"
-                }
-                TextField {
-                    id: pkStartMessageInput
-                    Layout.fillWidth: true
-                    text: "PK开始了，大家加油！"
-                }
-
-                Label {
-                    text: "PK结束提示"
-                    font.pixelSize: 14
-                    color: "gray"
-                }
-                TextField {
-                    id: pkEndMessageInput
-                    Layout.fillWidth: true
-                    text: "PK结束，感谢大家的支持！"
-                }
-
-                Label {
-                    text: "对方主播信息提示"
-                    font.pixelSize: 14
-                    color: "gray"
-                }
-                TextField {
-                    id: opponentInfoMessageInput
-                    Layout.fillWidth: true
-                    text: "当前PK对手：{主播名}，粉丝数：{粉丝数}"
-                }
-
-                Label {
-                    text: "对方用户串门识别"
-                    font.pixelSize: 14
-                    color: "gray"
-                }
-                TextField {
-                    id: opponentVisitorMessageInput
-                    Layout.fillWidth: true
-                    text: "欢迎来自{对方主播}直播间的{用户名}！"
-                }
-
-                Label {
-                    text: "PK目标设置"
-                    font.pixelSize: 14
-                    color: "gray"
-                    Layout.topMargin: 15
-                }
-                TextField {
-                    id: pkTargetInput
-                    Layout.fillWidth: true
-                    placeholderText: "输入对方主播ID..."
-                }
-                Button {
-                    id: getOpponentInfoButton
-                    text: "获取主播信息"
-                    Layout.fillWidth: true
-                    Layout.topMargin: 10
-                    // Style to mimic btn-outline if needed
-                    onClicked: {
-                        // Placeholder for action
-                        console.log("获取主播信息: " + pkTargetInput.text);
+                    Text {
+                        text: "启用PK功能"
+                        font.pixelSize: 14
+                        color: "#333333"
                     }
                 }
 
-                Label {
-                    text: "PK历史记录"
-                    font.pixelSize: 14
-                    color: "gray"
-                    Layout.topMargin: 15
-                }
-                ListView {
-                    id: pkHistoryListView
+                // PK开始提示
+                Column {
                     Layout.fillWidth: true
-                    Layout.preferredHeight: 120
-                    clip: true
-                    model: ListModel {
-                        id: pkHistoryModel
-                        // Corrected ListElement syntax if it was an issue.
-                        // Standard ListElement syntax is `ListElement { propertyName: value; propertyName2: value2 }`
-                        ListElement { opponentName: "游戏主播小张"; record: "3胜2负" }
-                        ListElement { opponentName: "音乐达人小王"; record: "5胜1负" }
-                        ListElement { opponentName: "美食博主小李"; record: "2胜2负" }
+                    spacing: 8
+                    
+                    Text {
+                        text: "PK开始提示"
+                        font.pixelSize: 14
+                        color: "#666666"
                     }
-                    delegate: ItemDelegate {
+                    TextField {
+                        id: pkStartMessageInput
                         width: parent.width
-                        text: model.opponentName // Changed to model.opponentName
-                        Label {
-                            text: model.record // Changed to model.record
-                            anchors.right: parent.right
-                            anchors.verticalCenter: parent.verticalCenter
-                            anchors.rightMargin: 10
-                            font.pixelSize: 14
-                            color: "#333"
+                        text: "PK开始了，大家加油！"
+                        placeholderText: "请输入PK开始提示"
+                        font.pixelSize: 14
+                        
+                        background: Rectangle {
+                            radius: 6
+                            color: "#fcfcfc"
+                            border.width: 1
+                            border.color: parent.activeFocus ? "#e8a798" : "#e0e0e0"
                         }
                     }
-                    ScrollIndicator.vertical: ScrollIndicator {}
                 }
 
-                Button {
-                    id: savePKSettingsButton
-                    text: "保存设置"
+                // PK结束提示
+                Column {
                     Layout.fillWidth: true
-                    Layout.topMargin: 20
-                    highlighted: true
+                    spacing: 8
+                    
+                    Text {
+                        text: "PK结束提示"
+                        font.pixelSize: 14
+                        color: "#666666"
+                    }
+                    TextField {
+                        id: pkEndMessageInput
+                        width: parent.width
+                        text: "PK结束，感谢大家的支持！"
+                        placeholderText: "请输入PK结束提示"
+                        font.pixelSize: 14
+                        
+                        background: Rectangle {
+                            radius: 6
+                            color: "#fcfcfc"
+                            border.width: 1
+                            border.color: parent.activeFocus ? "#e8a798" : "#e0e0e0"
+                        }
+                    }
+                }
+
+                // 对方主播信息提示
+                Column {
+                    Layout.fillWidth: true
+                    spacing: 8
+                    
+                    Text {
+                        text: "对方主播信息提示"
+                        font.pixelSize: 14
+                        color: "#666666"
+                    }
+                    TextField {
+                        id: opponentInfoMessageInput
+                        width: parent.width
+                        text: "当前PK对手：{主播名}，粉丝数：{粉丝数}"
+                        placeholderText: "请输入对方主播信息提示"
+                        font.pixelSize: 14
+                        
+                        background: Rectangle {
+                            radius: 6
+                            color: "#fcfcfc"
+                            border.width: 1
+                            border.color: parent.activeFocus ? "#e8a798" : "#e0e0e0"
+                        }
+                    }
+                }
+
+                // 对方用户串门识别
+                Column {
+                    Layout.fillWidth: true
+                    spacing: 8
+                    
+                    Text {
+                        text: "对方用户串门识别"
+                        font.pixelSize: 14
+                        color: "#666666"
+                    }
+                    TextField {
+                        id: opponentVisitorMessageInput
+                        width: parent.width
+                        text: "欢迎来自{对方主播}直播间的{用户名}！"
+                        placeholderText: "请输入对方用户串门识别"
+                        font.pixelSize: 14
+                        
+                        background: Rectangle {
+                            radius: 6
+                            color: "#fcfcfc"
+                            border.width: 1
+                            border.color: parent.activeFocus ? "#e8a798" : "#e0e0e0"
+                        }
+                    }
+                }
+
+                // 保存按钮
+                Button {
+                    text: "保存设置"
+                    Layout.preferredWidth: 120
+                    font.pixelSize: 14
+                    
+                    background: Rectangle {
+                        color: parent.pressed ? "#d89788" : (parent.hovered ? "#e19590" : "#e8a798")
+                        radius: 6
+                    }
+                    
                     onClicked: {
-                        // Placeholder for save action
-                        console.log("PK功能设置已保存");
+                        console.log("PK功能设置已保存")
                     }
                 }
             }
