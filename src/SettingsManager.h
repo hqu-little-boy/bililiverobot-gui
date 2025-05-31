@@ -24,6 +24,14 @@ class SettingsManager : public QObject {
     Q_PROPERTY(
         QString captainUserWelcome READ captainUserWelcome WRITE setCaptainUserWelcome NOTIFY captainUserWelcomeChanged)
 
+    // 关注答谢设置
+    Q_PROPERTY(bool followThanksEnabled READ followThanksEnabled WRITE setFollowThanksEnabled NOTIFY followThanksEnabledChanged)
+    Q_PROPERTY(QString followThanksMessage READ followThanksMessage WRITE setFollowThanksMessage NOTIFY followThanksMessageChanged)
+
+    // 分享感谢设置
+    Q_PROPERTY(bool shareThanksEnabled READ shareThanksEnabled WRITE setShareThanksEnabled NOTIFY shareThanksEnabledChanged)
+    Q_PROPERTY(QString shareThanksMessage READ shareThanksMessage WRITE setShareThanksMessage NOTIFY shareThanksMessageChanged)
+
     // 直播间设置
     Q_PROPERTY(QString roomId READ roomId WRITE setRoomId NOTIFY roomIdChanged)
     Q_PROPERTY(bool autoConnect READ autoConnect WRITE setAutoConnect NOTIFY autoConnectChanged)
@@ -58,6 +66,20 @@ public:
     Q_INVOKABLE QString captainUserWelcome() const { return m_captainUserWelcome; }
     Q_INVOKABLE void setCaptainUserWelcome(const QString &welcome);
 
+    // 关注答谢设置
+    Q_INVOKABLE bool followThanksEnabled() const { return m_followThanksEnabled; }
+    Q_INVOKABLE void setFollowThanksEnabled(bool enabled);
+
+    Q_INVOKABLE QString followThanksMessage() const { return m_followThanksMessage; }
+    Q_INVOKABLE void setFollowThanksMessage(const QString &message);
+
+    // 分享感谢设置
+    Q_INVOKABLE bool shareThanksEnabled() const { return m_shareThanksEnabled; }
+    Q_INVOKABLE void setShareThanksEnabled(bool enabled);
+
+    Q_INVOKABLE QString shareThanksMessage() const { return m_shareThanksMessage; }
+    Q_INVOKABLE void setShareThanksMessage(const QString &message);
+
     // 直播间设置
     Q_INVOKABLE QString roomId() const { return m_roomId; }
     Q_INVOKABLE void setRoomId(const QString &roomId);
@@ -67,6 +89,8 @@ public:
 
 public slots:
     void saveSettings();
+    void saveFollowSettings();
+    void saveShareSettings();
 
     void loadSettings();
 
@@ -87,6 +111,14 @@ signals:
 
     void captainUserWelcomeChanged();
 
+    void followThanksEnabledChanged();
+
+    void followThanksMessageChanged();
+
+    void shareThanksEnabledChanged();
+
+    void shareThanksMessageChanged();
+
     void roomIdChanged();
 
     void autoConnectChanged();
@@ -106,6 +138,14 @@ private:
     bool m_welcomeEnabled;
     QString m_normalUserWelcome;
     QString m_captainUserWelcome;
+
+    // 关注答谢设置
+    bool m_followThanksEnabled;
+    QString m_followThanksMessage;
+
+    // 分享感谢设置
+    bool m_shareThanksEnabled;
+    QString m_shareThanksMessage;
 
     // 直播间设置
     QString m_roomId;

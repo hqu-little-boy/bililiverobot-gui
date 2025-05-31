@@ -33,8 +33,7 @@ Rectangle {
                 // { id: "Stats", icon: "📊", text: "数据统计" },
                 { id: "Welcome", icon: "👋", text: "弹幕欢迎" },
                 { id: "Gift", icon: "🎁", text: "礼物答谢" },
-                { id: "Follow", icon: "👥", text: "关注答谢" },
-                { id: "Share", icon: "📤", text: "分享感谢" },
+                { id: "Interaction", icon: "💬", text: "互动回复" },
                 { id: "Blindbox", icon: "📦", text: "盲盒统计" },
                 { id: "PK", icon: "👊", text: "PK 相关" },
                 { id: "Settings", icon: "⚙️", text: "设置" }

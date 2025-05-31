@@ -6,11 +6,11 @@ import "components"
 
 ScrollView {
     id: root
-    
+
     ColumnLayout {
         width: root.width
         spacing: 20
-        
+
         // 页面标题
         Text {
             text: "礼物答谢设置"
@@ -18,14 +18,14 @@ ScrollView {
             font.weight: Font.Medium
             color: "#333333"
         }
-        
+
         // 礼物设置卡片
         Rectangle {
             Layout.fillWidth: true
             Layout.preferredHeight: 650
             radius: 8
             color: "#ffffff"
-            
+
             // 使用纯QML阴影效果替代DropShadow
             Rectangle {
                 anchors.fill: parent
@@ -35,12 +35,12 @@ ScrollView {
                 opacity: 0.1
                 z: -1
             }
-            
+
             ColumnLayout {
                 anchors.fill: parent
                 anchors.margins: 25
                 spacing: 20
-                
+
                 // 卡片标题
                 Row {
                     spacing: 10
@@ -55,18 +55,18 @@ ScrollView {
                         color: "#333333"
                     }
                 }
-                
+
                 Rectangle {
                     Layout.fillWidth: true
                     height: 1
                     color: "#f0f0f0"
                 }
 
-                
+
                 // 启用开关
                 RowLayout {
                     Layout.fillWidth: true
-                    
+
                     ToggleSwitch {
                         id: enableGiftThanksToggle
                         checked: true
@@ -82,7 +82,7 @@ ScrollView {
                 Column {
                     Layout.fillWidth: true
                     spacing: 8
-                    
+
                     Text {
                         text: "礼物答谢延迟 (秒)"
                         font.pixelSize: 14
@@ -95,7 +95,7 @@ ScrollView {
                         value: 3
                         editable: true
                         font.pixelSize: 14
-                        
+
                         background: Rectangle {
                             radius: 6
                             color: "#fcfcfc"
@@ -109,7 +109,7 @@ ScrollView {
                 Column {
                     Layout.fillWidth: true
                     spacing: 8
-                    
+
                     Text {
                         text: "默认答谢词"
                         font.pixelSize: 14
@@ -121,47 +121,7 @@ ScrollView {
                         placeholderText: "输入默认答谢词..."
                         text: "感谢 {用户名} 赠送的 {礼物名}！"
                         font.pixelSize: 14
-                        
-                        background: Rectangle {
-                            radius: 6
-                            color: "#fcfcfc"
-                            border.width: 1
-                            border.color: parent.activeFocus ? "#e8a798" : "#e0e0e0"
-                        }
-                    }
-                }
 
-                // 高价值礼物设置
-                Column {
-                    Layout.fillWidth: true
-                    spacing: 8
-                    
-                    Text {
-                        text: "高价值礼物单独设置"
-                        font.pixelSize: 14
-                        color: "#666666"
-                    }
-                    ComboBox {
-                        id: highValueGiftSelect
-                        width: parent.width
-                        model: ["选择礼物类型", "大航海", "醒目留言", "节奏风暴"]
-                        currentIndex: 0
-                        font.pixelSize: 14
-                        
-                        background: Rectangle {
-                            radius: 6
-                            color: "#fcfcfc"
-                            border.width: 1
-                            border.color: parent.activeFocus ? "#e8a798" : "#e0e0e0"
-                        }
-                    }
-                    TextField {
-                        id: highValueGiftMessageInput
-                        width: parent.width
-                        placeholderText: "自定义答谢词..."
-                        text: "感谢 {用户名} 开通舰长！"
-                        font.pixelSize: 14
-                        
                         background: Rectangle {
                             radius: 6
                             color: "#fcfcfc"
@@ -175,7 +135,7 @@ ScrollView {
                 Column {
                     Layout.fillWidth: true
                     spacing: 8
-                    
+
                     Text {
                         text: "礼物价值阈值"
                         font.pixelSize: 14
@@ -190,7 +150,7 @@ ScrollView {
                             to: 100
                             value: 50
                             stepSize: 1
-                            
+
                             background: Rectangle {
                                 x: giftValueThresholdSlider.leftPadding
                                 y: giftValueThresholdSlider.topPadding + giftValueThresholdSlider.availableHeight / 2 - height / 2
@@ -200,7 +160,7 @@ ScrollView {
                                 height: implicitHeight
                                 radius: 2
                                 color: "#e0e0e0"
-                                
+
                                 Rectangle {
                                     width: giftValueThresholdSlider.visualPosition * parent.width
                                     height: parent.height
@@ -208,7 +168,7 @@ ScrollView {
                                     radius: 2
                                 }
                             }
-                            
+
                             handle: Rectangle {
                                 x: giftValueThresholdSlider.leftPadding + giftValueThresholdSlider.visualPosition * (giftValueThresholdSlider.availableWidth - width)
                                 y: giftValueThresholdSlider.topPadding + giftValueThresholdSlider.availableHeight / 2 - height / 2
@@ -233,12 +193,12 @@ ScrollView {
                     text: "保存设置"
                     Layout.preferredWidth: 120
                     font.pixelSize: 14
-                    
+
                     background: Rectangle {
                         color: parent.pressed ? "#d89788" : (parent.hovered ? "#e19590" : "#e8a798")
                         radius: 6
                     }
-                    
+
                     onClicked: {
                         console.log("礼物答谢设置已保存")
                     }

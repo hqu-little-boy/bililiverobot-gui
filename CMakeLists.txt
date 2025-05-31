@@ -36,8 +36,7 @@ qt_add_qml_module(bilibilibot-gui
         qml/StatsPage.qml
         qml/WelcomePage.qml
         qml/GiftPage.qml
-        qml/FollowPage.qml
-        qml/SharePage.qml
+        qml/InteractionPage.qml
         qml/BlindboxPage.qml
         qml/PKPage.qml
         qml/SettingsPage.qml

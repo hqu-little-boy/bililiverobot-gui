@@ -27,6 +27,10 @@ SettingsManager::SettingsManager(QObject *parent)
     , m_welcomeEnabled(true)
     , m_normalUserWelcome("欢迎 {用户名} 进入直播间~")
     , m_captainUserWelcome("热烈欢迎舰长 {用户名} 进入直播间！")
+    , m_followThanksEnabled(true)
+    , m_followThanksMessage("感谢 {用户名} 的关注，欢迎加入我们！")
+    , m_shareThanksEnabled(true)
+    , m_shareThanksMessage("感谢 {用户名} 分享直播间！")
     , m_roomId("")
     , m_autoConnect(false)
 {
@@ -89,6 +93,38 @@ void SettingsManager::setCaptainUserWelcome(const QString &welcome)
     }
 }
 
+void SettingsManager::setFollowThanksEnabled(bool enabled)
+{
+    if (m_followThanksEnabled != enabled) {
+        m_followThanksEnabled = enabled;
+        emit followThanksEnabledChanged();
+    }
+}
+
+void SettingsManager::setFollowThanksMessage(const QString &message)
+{
+    if (m_followThanksMessage != message) {
+        m_followThanksMessage = message;
+        emit followThanksMessageChanged();
+    }
+}
+
+void SettingsManager::setShareThanksEnabled(bool enabled)
+{
+    if (m_shareThanksEnabled != enabled) {
+        m_shareThanksEnabled = enabled;
+        emit shareThanksEnabledChanged();
+    }
+}
+
+void SettingsManager::setShareThanksMessage(const QString &message)
+{
+    if (m_shareThanksMessage != message) {
+        m_shareThanksMessage = message;
+        emit shareThanksMessageChanged();
+    }
+}
+
 void SettingsManager::setRoomId(const QString &roomId)
 {
     if (m_roomId != roomId) {
@@ -118,10 +154,32 @@ void SettingsManager::saveSettings()
     m_settings->setValue("welcome/normalUser", m_normalUserWelcome);
     m_settings->setValue("welcome/captainUser", m_captainUserWelcome);
     
+    // 关注答谢设置
+    m_settings->setValue("follow/enabled", m_followThanksEnabled);
+    m_settings->setValue("follow/message", m_followThanksMessage);
+    
+    // 分享感谢设置
+    m_settings->setValue("share/enabled", m_shareThanksEnabled);
+    m_settings->setValue("share/message", m_shareThanksMessage);
+    
     // 直播间设置
     m_settings->setValue("room/id", m_roomId);
     m_settings->setValue("room/autoConnect", m_autoConnect);
     
+    m_settings->sync();
+}
+
+void SettingsManager::saveFollowSettings()
+{
+    m_settings->setValue("follow/enabled", m_followThanksEnabled);
+    m_settings->setValue("follow/message", m_followThanksMessage);
+    m_settings->sync();
+}
+
+void SettingsManager::saveShareSettings()
+{
+    m_settings->setValue("share/enabled", m_shareThanksEnabled);
+    m_settings->setValue("share/message", m_shareThanksMessage);
     m_settings->sync();
 }
 
@@ -138,6 +196,14 @@ void SettingsManager::loadSettings()
     m_normalUserWelcome = m_settings->value("welcome/normalUser", "欢迎 {用户名} 进入直播间~").toString();
     m_captainUserWelcome = m_settings->value("welcome/captainUser", "热烈欢迎舰长 {用户名} 进入直播间！").toString();
     
+    // 关注答谢设置
+    m_followThanksEnabled = m_settings->value("follow/enabled", true).toBool();
+    m_followThanksMessage = m_settings->value("follow/message", "感谢 {用户名} 的关注，欢迎加入我们！").toString();
+    
+    // 分享感谢设置
+    m_shareThanksEnabled = m_settings->value("share/enabled", true).toBool();
+    m_shareThanksMessage = m_settings->value("share/message", "感谢 {用户名} 分享直播间！").toString();
+    
     // 直播间设置
     m_roomId = m_settings->value("room/id", "").toString();
     m_autoConnect = m_settings->value("room/autoConnect", false).toBool();
@@ -152,6 +218,10 @@ void SettingsManager::resetToDefaults()
     m_welcomeEnabled = true;
     m_normalUserWelcome = "欢迎 {用户名} 进入直播间~";
     m_captainUserWelcome = "热烈欢迎舰长 {用户名} 进入直播间！";
+    m_followThanksEnabled = true;
+    m_followThanksMessage = "感谢 {用户名} 的关注，欢迎加入我们！";
+    m_shareThanksEnabled = true;
+    m_shareThanksMessage = "感谢 {用户名} 分享直播间！";
     m_roomId = "";
     m_autoConnect = false;
     
@@ -163,6 +233,10 @@ void SettingsManager::resetToDefaults()
     emit welcomeEnabledChanged();
     emit normalUserWelcomeChanged();
     emit captainUserWelcomeChanged();
+    emit followThanksEnabledChanged();
+    emit followThanksMessageChanged();
+    emit shareThanksEnabledChanged();
+    emit shareThanksMessageChanged();
     emit roomIdChanged();
     emit autoConnectChanged();
 }
