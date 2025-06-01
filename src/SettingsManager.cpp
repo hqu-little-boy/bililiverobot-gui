@@ -190,20 +190,20 @@ void SettingsManager::loadSettings()
     m_ttsVolume = m_settings->value("tts/volume", 80).toInt();
     m_ttsSpeed = m_settings->value("tts/speed", 5).toInt();
     m_ttsVoice = m_settings->value("tts/voice", "温柔女声").toString();
-    
+
     // 欢迎设置
     m_welcomeEnabled = m_settings->value("welcome/enabled", true).toBool();
     m_normalUserWelcome = m_settings->value("welcome/normalUser", "欢迎 {用户名} 进入直播间~").toString();
     m_captainUserWelcome = m_settings->value("welcome/captainUser", "热烈欢迎舰长 {用户名} 进入直播间！").toString();
-    
+
     // 关注答谢设置
     m_followThanksEnabled = m_settings->value("follow/enabled", true).toBool();
     m_followThanksMessage = m_settings->value("follow/message", "感谢 {用户名} 的关注，欢迎加入我们！").toString();
-    
+
     // 分享感谢设置
     m_shareThanksEnabled = m_settings->value("share/enabled", true).toBool();
     m_shareThanksMessage = m_settings->value("share/message", "感谢 {用户名} 分享直播间！").toString();
-    
+
     // 直播间设置
     m_roomId = m_settings->value("room/id", "").toString();
     m_autoConnect = m_settings->value("room/autoConnect", false).toBool();

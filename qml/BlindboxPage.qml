@@ -71,10 +71,10 @@ ScrollView {
 
                     Repeater {
                         model: [
-                            {value: "74", label: "今日盲盒", trend: "+5", isPositive: true},
-                            {value: "¥1,286", label: "总价值", trend: "+12%", isPositive: true},
-                            {value: "+¥326", label: "今日盈亏", trend: "", isPositive: true},
-                            {value: "18", label: "稀有盲盒", trend: "+2", isPositive: true}
+                            { value: "74", label: "今日盲盒", trend: "+5", isPositive: true },
+                            { value: "¥1,286", label: "总价值", trend: "+12%", isPositive: true },
+                            { value: "+¥326", label: "今日盈亏", trend: "", isPositive: true },
+                            { value: "18", label: "稀有盲盒", trend: "+2", isPositive: true }
                         ]
 
                         delegate: Rectangle {
@@ -124,7 +124,7 @@ ScrollView {
         // 盲盒提示设置卡片
         Rectangle {
             Layout.fillWidth: true
-            Layout.preferredHeight: 250
+            Layout.preferredHeight: 350
             radius: 8
             color: "#ffffff"
 
@@ -216,55 +216,55 @@ ScrollView {
                     }
                 }
 
-                // // 可用变量标签
-                // Column {
-                //     Layout.fillWidth: true
-                //     spacing: 8
-                //
-                //     Text {
-                //         text: "快速插入变量"
-                //         font.pixelSize: 14
-                //         color: "#666666"
-                //     }
-                //
-                //     Flow {
-                //         width: parent.width
-                //         spacing: 8
-                //
-                //         Repeater {
-                //             model: ["{用户名}", "{盲盒名}", "{奖品名}", "{价值}"]
-                //             delegate: Rectangle {
-                //                 width: variableText.width + 16
-                //                 height: 24
-                //                 radius: 12
-                //                 color: "#e8a798"
-                //
-                //                 Text {
-                //                     id: variableText
-                //                     anchors.centerIn: parent
-                //                     text: modelData
-                //                     font.pixelSize: 12
-                //                     color: "#ffffff"
-                //                 }
-                //
-                //                 MouseArea {
-                //                     anchors.fill: parent
-                //                     cursorShape: Qt.PointingHandCursor
-                //                     onClicked: {
-                //                         var cursorPos = notificationInput.cursorPosition
-                //                         var currentText = notificationInput.text
-                //                         var newText = currentText.substring(0, cursorPos) +
-                //                                      modelData +
-                //                                      currentText.substring(cursorPos)
-                //                         notificationInput.text = newText
-                //                         notificationInput.cursorPosition = cursorPos + modelData.length
-                //                         notificationInput.focus = true
-                //                     }
-                //                 }
-                //             }
-                //         }
-                //     }
-                // }
+                // 可用变量标签
+                Column {
+                    Layout.fillWidth: true
+                    spacing: 8
+
+                    Text {
+                        text: "快速插入变量"
+                        font.pixelSize: 14
+                        color: "#666666"
+                    }
+
+                    Flow {
+                        width: parent.width
+                        spacing: 8
+
+                        Repeater {
+                            model: ["{用户名}", "{盲盒名}", "{奖品名}", "{价值}"]
+                            delegate: Rectangle {
+                                width: variableText.width + 16
+                                height: 24
+                                radius: 12
+                                color: "#e8a798"
+                                
+                                Text {
+                                    id: variableText
+                                    anchors.centerIn: parent
+                                    text: modelData
+                                    font.pixelSize: 12
+                                    color: "#ffffff"
+                                }
+
+                                MouseArea {
+                                    anchors.fill: parent
+                                    cursorShape: Qt.PointingHandCursor
+                                    onClicked: {
+                                        var cursorPos = notificationInput.cursorPosition
+                                        var currentText = notificationInput.text
+                                        var newText = currentText.substring(0, cursorPos) + 
+                                                     modelData + 
+                                                     currentText.substring(cursorPos)
+                                        notificationInput.text = newText
+                                        notificationInput.cursorPosition = cursorPos + modelData.length
+                                        notificationInput.focus = true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -312,44 +312,42 @@ ScrollView {
                 }
 
                 // 排行榜类型标签
-                // 排行榜类型标签
                 Row {
                     spacing: 10
-                    id: rankTabs
-                    property int currentTabIndex: 0
 
                     Repeater {
                         model: [
-                            {text: "价值排行", type: "value"},
-                            {text: "数量排行", type: "count"},
-                            {text: "盈亏排行", type: "profit"}
+                            { text: "价值排行", type: "value" },
+                            { text: "数量排行", type: "count" },
+                            { text: "盈亏排行", type: "profit" }
                         ]
 
                         delegate: Rectangle {
                             width: tabText.width + 20
                             height: 32
                             radius: 16
-                            color: index === rankTabs.currentTabIndex ? "#e8a798" : "#f5f5f5"
+                            color: index === 0 ? "#e8a798" : "#f5f5f5"
 
                             Text {
                                 id: tabText
                                 anchors.centerIn: parent
                                 text: modelData.text
                                 font.pixelSize: 12
-                                color: index === rankTabs.currentTabIndex ? "#ffffff" : "#666666"
+                                color: index === 0 ? "#ffffff" : "#666666"
                             }
 
                             MouseArea {
                                 anchors.fill: parent
                                 cursorShape: Qt.PointingHandCursor
                                 onClicked: {
-                                    rankTabs.currentTabIndex = index
+                                    // 切换标签逻辑（暂时省略实现）
                                     console.log("切换到", modelData.text)
                                 }
                             }
                         }
                     }
                 }
+
                 // 排行榜列表
                 Rectangle {
                     Layout.fillWidth: true
@@ -363,21 +361,11 @@ ScrollView {
                         anchors.fill: parent
                         anchors.margins: 10
                         model: ListModel {
-                            ListElement {
-                                rank: 1; username: "开盒大师"; value: "¥856"; isProfit: true
-                            }
-                            ListElement {
-                                rank: 2; username: "欧皇降临"; value: "¥742"; isProfit: true
-                            }
-                            ListElement {
-                                rank: 3; username: "幸运星"; value: "¥658"; isProfit: true
-                            }
-                            ListElement {
-                                rank: 4; username: "盒子爱好者"; value: "¥542"; isProfit: true
-                            }
-                            ListElement {
-                                rank: 5; username: "抽奖达人"; value: "¥436"; isProfit: true
-                            }
+                            ListElement { rank: 1; username: "开盒大师"; value: "¥856"; isProfit: true }
+                            ListElement { rank: 2; username: "欧皇降临"; value: "¥742"; isProfit: true }
+                            ListElement { rank: 3; username: "幸运星"; value: "¥658"; isProfit: true }
+                            ListElement { rank: 4; username: "盒子爱好者"; value: "¥542"; isProfit: true }
+                            ListElement { rank: 5; username: "抽奖达人"; value: "¥436"; isProfit: true }
                         }
 
                         delegate: Rectangle {

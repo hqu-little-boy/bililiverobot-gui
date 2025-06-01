@@ -19,12 +19,12 @@ class TTSManager : public QObject {
     QML_ELEMENT
     QML_SINGLETON
 
-    Q_PROPERTY(bool isEnabled READ isEnabled WRITE setIsEnabled NOTIFY isEnabledChanged)
-    Q_PROPERTY(bool isPlaying READ isPlaying NOTIFY isPlayingChanged)
-    Q_PROPERTY(int volume READ volume WRITE setVolume NOTIFY volumeChanged)
-    Q_PROPERTY(int speed READ speed WRITE setSpeed NOTIFY speedChanged)
-    Q_PROPERTY(QString voice READ voice WRITE setVoice NOTIFY voiceChanged)
-    Q_PROPERTY(QStringList availableVoices READ availableVoices CONSTANT)
+    // Q_PROPERTY(bool isEnabled READ isEnabled WRITE setIsEnabled NOTIFY isEnabledChanged)
+    // Q_PROPERTY(bool isPlaying READ isPlaying NOTIFY isPlayingChanged)
+    // Q_PROPERTY(int volume READ volume WRITE setVolume NOTIFY volumeChanged)
+    // Q_PROPERTY(int speed READ speed WRITE setSpeed NOTIFY speedChanged)
+    // Q_PROPERTY(QString voice READ voice WRITE setVoice NOTIFY voiceChanged)
+    // Q_PROPERTY(QStringList availableVoices READ availableVoices CONSTANT)
 
 private:
     explicit TTSManager(QObject *parent = nullptr);

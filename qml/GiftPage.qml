@@ -69,7 +69,10 @@ ScrollView {
 
                     ToggleSwitch {
                         id: enableGiftThanksToggle
-                        checked: true
+                        checked: SettingsManager.giftEnabled()
+                        onCheckedChanged: {
+                            SettingsManager.setGiftEnabled(checked)
+                        }
                     }
                     Text {
                         text: "启用礼物答谢功能"
@@ -92,7 +95,7 @@ ScrollView {
                         id: giftThanksDelaySpinBox
                         from: 0
                         to: 10
-                        value: 3
+                        value: SettingsManager.giftThanksDelay()
                         editable: true
                         font.pixelSize: 14
 
@@ -101,6 +104,9 @@ ScrollView {
                             color: "#fcfcfc"
                             border.width: 1
                             border.color: parent.activeFocus ? "#e8a798" : "#e0e0e0"
+                        }
+                        onValueChanged: {
+                            SettingsManager.setGiftThanksDelay(value)
                         }
                     }
                 }

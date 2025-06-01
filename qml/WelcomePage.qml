@@ -67,9 +67,9 @@ ScrollView {
                     Layout.fillWidth: true
 
                     ToggleSwitch {
-                        checked: SettingsManager.welcomeEnabled
+                        checked: SettingsManager.welcomeEnabled()
                         onCheckedChanged: {
-                            SettingsManager.welcomeEnabled = checked
+                            SettingsManager.setWelcomeEnabled(checked)
                         }
                     }
 
@@ -105,7 +105,7 @@ ScrollView {
                         }
 
                         Component.onCompleted: {
-                            text = SettingsManager.normalUserWelcome || "欢迎 {用户名} 进入直播间~"
+                            text = SettingsManager.normalUserWelcome()
                         }
 
                         onTextChanged: {
@@ -148,14 +148,15 @@ ScrollView {
                         }
 
                         Component.onCompleted: {
-                            text = SettingsManager.captainUserWelcome || "热烈欢迎舰长 {用户名} 进入直播间！"
+                            text = SettingsManager.captainUserWelcome()
                         }
 
                         onTextChanged: {
                             if (!captainUserTextField.activeFocus) {
                                 return // 避免在程序设置时触发
                             }
-                            SettingsManager.captainUserWelcome = text
+                            SettingsManager.setCaptainUserWelcome(text)
+                            // SettingsManager.captainUserWelcome = text
                         }
                     }
                 }

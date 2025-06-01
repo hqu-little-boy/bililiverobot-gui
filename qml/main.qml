@@ -11,40 +11,40 @@ ApplicationWindow {
     minimumHeight: 600
     visible: true
     title: qsTr("B站弹幕机器人")
-    
+
     property bool isLoggedIn: true // 登录状态
-    
+
     Component.onCompleted: {
         // 连接单例信号
-        BilibiliApi.loginSuccess.connect(function() {
+        BilibiliApi.loginSuccess.connect(function () {
             window.isLoggedIn = true
             DanmakuModel.startSimulation()
         })
-        
-        BilibiliApi.loginStatusChanged.connect(function() {
+
+        BilibiliApi.loginStatusChanged.connect(function () {
             window.isLoggedIn = BilibiliApi.isLoggedIn
         })
-        
-        BilibiliApi.danmakuReceived.connect(function(user, message, type) {
+
+        BilibiliApi.danmakuReceived.connect(function (user, message, type) {
             DanmakuModel.addMessage(user, message, type)
             if (SettingsManager.ttsEnabled) {
                 TTSManager.speak(user + "说：" + message)
             }
         })
-        
+
         // 同步TTS设置
-        TTSManager.isEnabled = SettingsManager.ttsEnabled
-        TTSManager.volume = SettingsManager.ttsVolume
-        TTSManager.speed = SettingsManager.ttsSpeed
-        TTSManager.voice = SettingsManager.ttsVoice
+        TTSManager.setIsEnabled(SettingsManager.ttsEnabled)
+        TTSManager.setVolume(SettingsManager.ttsVolume)
+        TTSManager.setSpeed(SettingsManager.ttsSpeed)
+        TTSManager.setVoice(SettingsManager.ttsVoice)
     }
-    
+
     // 主内容
     Loader {
         id: mainLoader
         anchors.fill: parent
         source: window.isLoggedIn ? "MainPage.qml" : "LoginPage.qml"
-        
+
         onLoaded: {
             if (item && window.isLoggedIn) {
                 // 单例模式下不需要传递任何属性

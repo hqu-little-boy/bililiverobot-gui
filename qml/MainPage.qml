@@ -34,20 +34,6 @@ Rectangle {
                 anchors.fill: parent
                 anchors.margins: 20
                 source: "DanmakuPage.qml"
-                
-                // onLoaded: {
-                //     if (item) {
-                //         // 传递单例实例给加载的页面
-                //         if (item.hasOwnProperty("danmakuModel"))
-                //             item.danmakuModel = DanmakuModel
-                //         if (item.hasOwnProperty("settingsManager"))
-                //             item.settingsManager = SettingsManager
-                //         if (item.hasOwnProperty("bilibiliApi"))
-                //             item.bilibiliApi = BilibiliApi
-                //         if (item.hasOwnProperty("ttsManager"))
-                //             item.ttsManager = TTSManager
-                //     }
-                // }
             }
         }
     }

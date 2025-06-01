@@ -32,15 +32,15 @@ BilibiliApi::BilibiliApi(QObject *parent)
     , m_loginStatus("等待扫码中...")
     , m_currentRoomId("")
 {
-    connect(m_qrCheckTimer, &QTimer::timeout, this, &BilibiliApi::checkQRCodeStatus);
-    connect(m_eventSimulationTimer, &QTimer::timeout, this, &BilibiliApi::startEventSimulation);
+    // connect(m_qrCheckTimer, &QTimer::timeout, this, &BilibiliApi::checkQRCodeStatus);
+    // connect(m_eventSimulationTimer, &QTimer::timeout, this, &BilibiliApi::startEventSimulation);
 }
 
 void BilibiliApi::setCurrentRoomId(const QString &roomId)
 {
     if (m_currentRoomId != roomId) {
         m_currentRoomId = roomId;
-        emit currentRoomIdChanged();
+        // emit currentRoomIdChanged();
     }
 }
 
@@ -51,8 +51,8 @@ void BilibiliApi::generateQRCode()
     m_qrCodeUrl = "https://passport.bilibili.com/qrcode/h5/login?oauthKey=example_key";
     m_loginStatus = "等待扫码中...";
     
-    emit qrCodeUrlChanged();
-    emit qrCodeGenerated(m_qrCodeUrl);
+    // emit qrCodeUrlChanged();
+    // emit qrCodeGenerated(m_qrCodeUrl);
     
     // 开始检查登录状态
     m_qrCheckTimer->start(2000); // 每2秒检查一次
