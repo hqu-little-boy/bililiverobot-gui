@@ -195,20 +195,20 @@ ScrollView {
                 }
 
                 // 保存按钮
-                Button {
-                    text: "保存设置"
-                    Layout.preferredWidth: 120
-                    font.pixelSize: 14
-
-                    background: Rectangle {
-                        color: parent.pressed ? "#d89788" : (parent.hovered ? "#e19590" : "#e8a798")
-                        radius: 6
-                    }
-
-                    onClicked: {
-                        console.log("礼物答谢设置已保存")
-                    }
-                }
+                // Button {
+                //     text: "保存设置"
+                //     Layout.preferredWidth: 120
+                //     font.pixelSize: 14
+                //
+                //     background: Rectangle {
+                //         color: parent.pressed ? "#d89788" : (parent.hovered ? "#e19590" : "#e8a798")
+                //         radius: 6
+                //     }
+                //
+                //     onClicked: {
+                //         console.log("礼物答谢设置已保存")
+                //     }
+                // }
             }
         }
     }

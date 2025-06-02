@@ -245,27 +245,27 @@ ScrollView {
                 }
 
                 // 保存按钮
-                Button {
-                    Layout.alignment: Qt.AlignLeft
-                    text: "💾 保存设置"
-
-                    background: Rectangle {
-                        radius: 6
-                        color: parent.pressed ? "#d89788" : "#e8a798"
-                    }
-
-                    contentItem: Text {
-                        text: parent.text
-                        font.pixelSize: 14
-                        color: "#ffffff"
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                    }
-
-                    onClicked: {
-                        SettingsManager.saveSettings()
-                    }
-                }
+                // Button {
+                //     Layout.alignment: Qt.AlignLeft
+                //     text: "💾 保存设置"
+                //
+                //     background: Rectangle {
+                //         radius: 6
+                //         color: parent.pressed ? "#d89788" : "#e8a798"
+                //     }
+                //
+                //     contentItem: Text {
+                //         text: parent.text
+                //         font.pixelSize: 14
+                //         color: "#ffffff"
+                //         horizontalAlignment: Text.AlignHCenter
+                //         verticalAlignment: Text.AlignVCenter
+                //     }
+                //
+                //     onClicked: {
+                //         SettingsManager.saveSettings()
+                //     }
+                // }
             }
         }
     }

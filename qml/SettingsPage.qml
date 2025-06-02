@@ -205,28 +205,28 @@ ScrollView {
                     Layout.fillWidth: true
                     spacing: 20
 
-                    Button {
-                        text: "💾 保存所有设置"
-
-                        background: Rectangle {
-                            radius: 6
-                            color: parent.pressed ? "#d89788" : "#e8a798"
-                        }
-
-                        contentItem: Text {
-                            text: parent.text
-                            font.pixelSize: 14
-                            color: "#ffffff"
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                        }
-
-                        onClicked: {
-                            if (SettingsManager) {
-                                SettingsManager.saveSettings()
-                            }
-                        }
-                    }
+                    // Button {
+                    //     text: "💾 保存所有设置"
+                    //
+                    //     background: Rectangle {
+                    //         radius: 6
+                    //         color: parent.pressed ? "#d89788" : "#e8a798"
+                    //     }
+                    //
+                    //     contentItem: Text {
+                    //         text: parent.text
+                    //         font.pixelSize: 14
+                    //         color: "#ffffff"
+                    //         horizontalAlignment: Text.AlignHCenter
+                    //         verticalAlignment: Text.AlignVCenter
+                    //     }
+                    //
+                    //     onClicked: {
+                    //         if (SettingsManager) {
+                    //             SettingsManager.saveSettings()
+                    //         }
+                    //     }
+                    // }
 
                     Button {
                         text: "🔄 重置为默认"
