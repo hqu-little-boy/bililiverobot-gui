@@ -178,204 +178,204 @@ ScrollView {
             }
         }
 
-        // // TTS控制卡片
-        // Rectangle {
-        //     Layout.fillWidth: true
-        //     Layout.preferredHeight: 300
-        //     radius: 8
-        //     color: "#ffffff"
-        //
-        //     // 使用纯QML阴影效果替代DropShadow
-        //     Rectangle {
-        //         anchors.fill: parent
-        //         anchors.topMargin: 2
-        //         color: "#10000000"
-        //         radius: parent.radius
-        //         opacity: 0.1
-        //         z: -1
-        //     }
-        //
-        //     ColumnLayout {
-        //         anchors.fill: parent
-        //         anchors.margins: 25
-        //         spacing: 20
-        //
-        //         // 卡片标题
-        //         Row {
-        //             spacing: 10
-        //             Text {
-        //                 text: "🔊"
-        //                 font.pixelSize: 18
-        //             }
-        //             Text {
-        //                 text: "TTS 控制面板"
-        //                 font.pixelSize: 18
-        //                 font.weight: Font.Medium
-        //                 color: "#333333"
-        //             }
-        //         }
-        //
-        //         Rectangle {
-        //             Layout.fillWidth: true
-        //             height: 1
-        //             color: "#f0f0f0"
-        //         }
-        //
-        //         // TTS开关
-        //         RowLayout {
-        //             Layout.fillWidth: true
-        //
-        //             ToggleSwitch {
-        //                 checked: SettingsManager.ttsEnabled()
-        //                 onCheckedChanged: {
-        //                     SettingsManager.setTtsEnabled(checked)
-        //                 }
-        //             }
-        //
-        //             Text {
-        //                 text: "启用TTS语音播报"
-        //                 font.pixelSize: 14
-        //                 color: "#333333"
-        //             }
-        //         }
-        //
-        //         // 音量和语速控制
-        //         GridLayout {
-        //             Layout.fillWidth: true
-        //             columns: 2
-        //             columnSpacing: 20
-        //             rowSpacing: 15
-        //
-        //             // 音量控制
-        //             Column {
-        //                 spacing: 8
-        //                 Text {
-        //                     text: "语音音量"
-        //                     font.pixelSize: 14
-        //                     color: "#666666"
-        //                 }
-        //
-        //                 RowLayout {
-        //                     spacing: 10
-        //                     Slider {
-        //                         id: volumeSlider
-        //                         Layout.preferredWidth: 120
-        //                         from: 0
-        //                         to: 100
-        //                         value: root.settingsManager ? (root.settingsManager.ttsVolume || 80) : 80
-        //
-        //                         onValueChanged: {
-        //                             if (root.settingsManager) {
-        //                                 root.settingsManager.ttsVolume = value
-        //                             }
-        //                         }
-        //                     }
-        //
-        //                     Text {
-        //                         text: Math.round(volumeSlider.value) + "%"
-        //                         font.pixelSize: 12
-        //                         color: "#666666"
-        //                         Layout.preferredWidth: 30
-        //                     }
-        //                 }
-        //             }
-        //
-        //             // 语速控制
-        //             Column {
-        //                 spacing: 8
-        //                 Text {
-        //                     text: "语速"
-        //                     font.pixelSize: 14
-        //                     color: "#666666"
-        //                 }
-        //
-        //                 RowLayout {
-        //                     spacing: 10
-        //                     Slider {
-        //                         id: speedSlider
-        //                         Layout.preferredWidth: 120
-        //                         from: 1
-        //                         to: 10
-        //                         value: root.settingsManager ? (root.settingsManager.ttsSpeed || 5) : 5
-        //
-        //                         onValueChanged: {
-        //                             if (root.settingsManager) {
-        //                                 root.settingsManager.ttsSpeed = value
-        //                             }
-        //                         }
-        //                     }
-        //
-        //                     Text {
-        //                         text: Math.round(speedSlider.value)
-        //                         font.pixelSize: 12
-        //                         color: "#666666"
-        //                         Layout.preferredWidth: 30
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //
-        //         // // 语音风格选择
-        //         // Column {
-        //         //     Layout.fillWidth: true
-        //         //     spacing: 8
-        //         //
-        //         //     Text {
-        //         //         text: "语音风格"
-        //         //         font.pixelSize: 14
-        //         //         color: "#666666"
-        //         //     }
-        //         //
-        //         //     ComboBox {
-        //         //         Layout.fillWidth: true
-        //         //         model: root.ttsManager ? (root.ttsManager.availableVoices || ["温柔女声", "活泼女声", "成熟男声"]) : ["温柔女声", "活泼女声", "成熟男声"]
-        //         //         currentIndex: {
-        //         //             if (root.ttsManager && root.ttsManager.availableVoices) {
-        //         //                 return root.ttsManager.availableVoices.indexOf(root.settingsManager ? (root.settingsManager.ttsVoice || "温柔女声") : "温柔女声")
-        //         //             }
-        //         //             return 0
-        //         //         }
-        //         //
-        //         //         onCurrentTextChanged: {
-        //         //             if (root.settingsManager) {
-        //         //                 root.settingsManager.ttsVoice = currentText
-        //         //             }
-        //         //         }
-        //         //
-        //         //         background: Rectangle {
-        //         //             radius: 6
-        //         //             color: "#fcfcfc"
-        //         //             border.width: 1
-        //         //             border.color: "#e0e0e0"
-        //         //         }
-        //         //     }
-        //         // }
-        //         //
-        //         // // 测试按钮
-        //         // Button {
-        //         //     Layout.alignment: Qt.AlignLeft
-        //         //     text: "🎵 测试语音"
-        //         //
-        //         //     background: Rectangle {
-        //         //         radius: 6
-        //         //         color: parent.pressed ? "#d89788" : "#e8a798"
-        //         //     }
-        //         //
-        //         //     contentItem: Text {
-        //         //         text: parent.text
-        //         //         font.pixelSize: 14
-        //         //         color: "#ffffff"
-        //         //         horizontalAlignment: Text.AlignHCenter
-        //         //         verticalAlignment: Text.AlignVCenter
-        //         //     }
-        //         //
-        //         //     onClicked: {
-        //         //         if (root.ttsManager) {
-        //         //             root.ttsManager.testSpeak()
-        //         //         }
-        //         //     }
-        //         // }
-        //     }
-        // }
+        // TTS控制卡片
+        Rectangle {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 300
+            radius: 8
+            color: "#ffffff"
+
+            // 使用纯QML阴影效果替代DropShadow
+            Rectangle {
+                anchors.fill: parent
+                anchors.topMargin: 2
+                color: "#10000000"
+                radius: parent.radius
+                opacity: 0.1
+                z: -1
+            }
+
+            ColumnLayout {
+                anchors.fill: parent
+                anchors.margins: 25
+                spacing: 20
+
+                // 卡片标题
+                Row {
+                    spacing: 10
+                    Text {
+                        text: "🔊"
+                        font.pixelSize: 18
+                    }
+                    Text {
+                        text: "TTS 控制面板"
+                        font.pixelSize: 18
+                        font.weight: Font.Medium
+                        color: "#333333"
+                    }
+                }
+
+                Rectangle {
+                    Layout.fillWidth: true
+                    height: 1
+                    color: "#f0f0f0"
+                }
+
+                // TTS开关
+                RowLayout {
+                    Layout.fillWidth: true
+
+                    ToggleSwitch {
+                        checked: SettingsManager.ttsEnabled()
+                        onCheckedChanged: {
+                            SettingsManager.setTtsEnabled(checked)
+                        }
+                    }
+
+                    Text {
+                        text: "启用TTS语音播报"
+                        font.pixelSize: 14
+                        color: "#333333"
+                    }
+                }
+
+                // 音量和语速控制
+                GridLayout {
+                    Layout.fillWidth: true
+                    columns: 2
+                    columnSpacing: 20
+                    rowSpacing: 15
+
+                    // 音量控制
+                    Column {
+                        spacing: 8
+                        Text {
+                            text: "语音音量"
+                            font.pixelSize: 14
+                            color: "#666666"
+                        }
+
+                        RowLayout {
+                            spacing: 10
+                            Slider {
+                                id: volumeSlider
+                                Layout.preferredWidth: 120
+                                from: 0
+                                to: 100
+                                value: root.settingsManager ? (root.settingsManager.ttsVolume || 80) : 80
+
+                                onValueChanged: {
+                                    if (root.settingsManager) {
+                                        root.settingsManager.ttsVolume = value
+                                    }
+                                }
+                            }
+
+                            Text {
+                                text: Math.round(volumeSlider.value) + "%"
+                                font.pixelSize: 12
+                                color: "#666666"
+                                Layout.preferredWidth: 30
+                            }
+                        }
+                    }
+
+                    // 语速控制
+                    Column {
+                        spacing: 8
+                        Text {
+                            text: "语速"
+                            font.pixelSize: 14
+                            color: "#666666"
+                        }
+
+                        RowLayout {
+                            spacing: 10
+                            Slider {
+                                id: speedSlider
+                                Layout.preferredWidth: 120
+                                from: 1
+                                to: 10
+                                value: root.settingsManager ? (root.settingsManager.ttsSpeed || 5) : 5
+
+                                onValueChanged: {
+                                    if (root.settingsManager) {
+                                        root.settingsManager.ttsSpeed = value
+                                    }
+                                }
+                            }
+
+                            Text {
+                                text: Math.round(speedSlider.value)
+                                font.pixelSize: 12
+                                color: "#666666"
+                                Layout.preferredWidth: 30
+                            }
+                        }
+                    }
+                }
+
+                // // 语音风格选择
+                // Column {
+                //     Layout.fillWidth: true
+                //     spacing: 8
+                //
+                //     Text {
+                //         text: "语音风格"
+                //         font.pixelSize: 14
+                //         color: "#666666"
+                //     }
+                //
+                //     ComboBox {
+                //         Layout.fillWidth: true
+                //         model: root.ttsManager ? (root.ttsManager.availableVoices || ["温柔女声", "活泼女声", "成熟男声"]) : ["温柔女声", "活泼女声", "成熟男声"]
+                //         currentIndex: {
+                //             if (root.ttsManager && root.ttsManager.availableVoices) {
+                //                 return root.ttsManager.availableVoices.indexOf(root.settingsManager ? (root.settingsManager.ttsVoice || "温柔女声") : "温柔女声")
+                //             }
+                //             return 0
+                //         }
+                //
+                //         onCurrentTextChanged: {
+                //             if (root.settingsManager) {
+                //                 root.settingsManager.ttsVoice = currentText
+                //             }
+                //         }
+                //
+                //         background: Rectangle {
+                //             radius: 6
+                //             color: "#fcfcfc"
+                //             border.width: 1
+                //             border.color: "#e0e0e0"
+                //         }
+                //     }
+                // }
+                //
+                // // 测试按钮
+                // Button {
+                //     Layout.alignment: Qt.AlignLeft
+                //     text: "🎵 测试语音"
+                //
+                //     background: Rectangle {
+                //         radius: 6
+                //         color: parent.pressed ? "#d89788" : "#e8a798"
+                //     }
+                //
+                //     contentItem: Text {
+                //         text: parent.text
+                //         font.pixelSize: 14
+                //         color: "#ffffff"
+                //         horizontalAlignment: Text.AlignHCenter
+                //         verticalAlignment: Text.AlignVCenter
+                //     }
+                //
+                //     onClicked: {
+                //         if (root.ttsManager) {
+                //             root.ttsManager.testSpeak()
+                //         }
+                //     }
+                // }
+            }
+        }
     }
 }

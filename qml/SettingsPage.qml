@@ -253,28 +253,28 @@ ScrollView {
                         }
                     }
 
-                    Button {
-                        text: "🚪 退出登录"
-
-                        background: Rectangle {
-                            radius: 6
-                            color: parent.pressed ? "#d32f2f" : "#f44336"
-                        }
-
-                        contentItem: Text {
-                            text: parent.text
-                            font.pixelSize: 14
-                            color: "#ffffff"
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                        }
-
-                        onClicked: {
-                            if (BilibiliApi) {
-                                BilibiliApi.logout()
-                            }
-                        }
-                    }
+                    // Button {
+                    //     text: "🚪 切换账号"
+                    //
+                    //     background: Rectangle {
+                    //         radius: 6
+                    //         color: parent.pressed ? "#d32f2f" : "#f44336"
+                    //     }
+                    //
+                    //     contentItem: Text {
+                    //         text: parent.text
+                    //         font.pixelSize: 14
+                    //         color: "#ffffff"
+                    //         horizontalAlignment: Text.AlignHCenter
+                    //         verticalAlignment: Text.AlignVCenter
+                    //     }
+                    //
+                    //     onClicked: {
+                    //         if (BilibiliApi) {
+                    //             BilibiliApi.logout()
+                    //         }
+                    //     }
+                    // }
                 }
 
                 Rectangle {
@@ -300,13 +300,6 @@ ScrollView {
                         Text {
                             anchors.horizontalCenter: parent.horizontalCenter
                             text: "B站弹幕机器人 v1.0.0"
-                            font.pixelSize: 12
-                            color: "#999999"
-                        }
-
-                        Text {
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            text: "基于 Qt6 + QML 开发"
                             font.pixelSize: 12
                             color: "#999999"
                         }
