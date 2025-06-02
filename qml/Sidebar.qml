@@ -30,6 +30,7 @@ Rectangle {
         Repeater {
             model: [
                 { id: "Danmaku", icon: "💬", text: "实时弹幕" },
+                { id: "LoginInfo", icon: "👤", text: "登录信息" },
                 // { id: "Stats", icon: "📊", text: "数据统计" },
                 { id: "Welcome", icon: "👋", text: "弹幕欢迎" },
                 { id: "Gift", icon: "🎁", text: "礼物答谢" },

@@ -40,6 +40,7 @@ qt_add_qml_module(bilibilibot-gui
         qml/BlindboxPage.qml
         qml/PKPage.qml
         qml/SettingsPage.qml
+        qml/LoginInfoPage.qml
         qml/components/DanmakuMessage.qml
         qml/components/StatsCard.qml
         qml/components/ToggleSwitch.qml
